@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_main.xml" value="0.11684782608695653" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_main_admin.xml" value="0.25" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_order.xml" value="0.33" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/item_row_order.xml" value="0.25" />
       </map>
     </option>
   </component>
