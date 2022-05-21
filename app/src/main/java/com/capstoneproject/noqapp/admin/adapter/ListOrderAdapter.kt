@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
-import com.capstoneproject.noqapp.admin.OrderActivity
-import com.capstoneproject.noqapp.databinding.ItemRowOrderBinding
+import com.capstoneproject.noqapp.admin.activity.OrderActivity
 import com.capstoneproject.noqapp.admin.model.Order
+import com.capstoneproject.noqapp.databinding.ItemRowOrderBinding
 
 class ListOrderAdapter(private val listOrder: ArrayList<Order>) :
     RecyclerView.Adapter<ListOrderAdapter.ListViewHolder>() {
