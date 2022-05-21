@@ -8,6 +8,26 @@
     <string name="total_price">Total Price : Rp. %1$s</string>
     <string name="order_received">Order Received</string>
     <string name="fab_home">Home Floating Action Button</string>
+    <string name="register_here">Register Here</string>
+    <string name="message_sign_up">Don\'t have an account?</string>
+    <string name="message_login">Already have an account?</string>
+    <string name="login_here">Login Here</string>
+    <string name="signup">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_success">Login Success</string>
+    <string name="success_create_account">Account Created Successfully</string>
+    <string name="password_validation">Min 6 Characters</string>
+    <string name="logo_app">Logo App</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="logout_success">Logout Successfully</string>
+    <string name="wrong_password_and_email">Email or Password don\'t match</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_name">Enter Name</string>
+    <string name="enter_format_email">Enter the correct email format</string>
+    <string name="noq_app">NoQ App</string>
 
     <string-array name="timeStamp">
         <item>20 April 2022</item>

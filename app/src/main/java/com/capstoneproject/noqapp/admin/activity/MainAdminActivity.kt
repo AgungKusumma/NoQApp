@@ -1,19 +1,33 @@
-package com.capstoneproject.noqapp.admin
+package com.capstoneproject.noqapp.admin.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstoneproject.noqapp.R
+import com.capstoneproject.noqapp.ViewModelFactory
 import com.capstoneproject.noqapp.admin.adapter.ListOrderAdapter
-import com.capstoneproject.noqapp.databinding.ActivityMainAdminBinding
+import com.capstoneproject.noqapp.admin.model.MainAdminViewModel
 import com.capstoneproject.noqapp.admin.model.Order
+import com.capstoneproject.noqapp.authentication.activity.LoginActivity
+import com.capstoneproject.noqapp.databinding.ActivityMainAdminBinding
+import com.capstoneproject.noqapp.model.UserPreference
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class MainAdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainAdminBinding
+    private lateinit var mainAdminViewModel: MainAdminViewModel
     private lateinit var rvHeroes: RecyclerView
     private val list = ArrayList<Order>()
 
@@ -23,6 +37,8 @@ class MainAdminActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        setupViewModel()
+        setupAction()
         showRecyclerList()
     }
 
@@ -37,6 +53,20 @@ class MainAdminActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun setupViewModel() {
+        mainAdminViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(UserPreference.getInstance(dataStore))
+        )[MainAdminViewModel::class.java]
+
+        mainAdminViewModel.getUser().observe(this) { user ->
+            if (!user.isLogin) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
     }
 
     private fun showRecyclerList() {
@@ -66,4 +96,12 @@ class MainAdminActivity : AppCompatActivity() {
             }
             return listHero
         }
+
+    private fun setupAction() {
+        binding.fabLogout.setOnClickListener {
+            mainAdminViewModel.logout()
+            Toast.makeText(this@MainAdminActivity,
+                getString(R.string.logout_success), Toast.LENGTH_LONG).show()
+        }
+    }
 }
