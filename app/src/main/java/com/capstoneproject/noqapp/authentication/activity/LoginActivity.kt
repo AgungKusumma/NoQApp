@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.ViewModelFactory
 import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
+import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.LoginViewModel
 import com.capstoneproject.noqapp.databinding.ActivityLoginBinding
 import com.capstoneproject.noqapp.model.UserModel
@@ -25,6 +26,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var authenticationViewModel: AuthenticationViewModel
     private lateinit var user: UserModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,9 +59,12 @@ class LoginActivity : AppCompatActivity() {
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[LoginViewModel::class.java]
 
+        authenticationViewModel = AuthenticationViewModel.getInstance(this)
+
         loginViewModel.getUser().observe(this) { user ->
             this.user = user
         }
+
     }
 
     private fun setupAction() {
@@ -74,24 +79,38 @@ class LoginActivity : AppCompatActivity() {
                     password.isEmpty() -> {
                         passwordEditText.error = getString(R.string.enter_password)
                     }
-                    email != user.email || password != user.password -> {
-                        emailEditText.error = getString(R.string.wrong_password_and_email)
-                        passwordEditText.error = getString(R.string.wrong_password_and_email)
-
-                        Toast.makeText(this@LoginActivity,
-                            getString(R.string.login_failed), Toast.LENGTH_LONG).show()
-                    }
                     else -> {
                         loginViewModel.login()
-                        Toast.makeText(this@LoginActivity,
-                            getString(R.string.login_success),
-                            Toast.LENGTH_LONG).show()
+                        authenticationViewModel.userLogin(email, password)
+                        authenticationViewModel.error.observe(this@LoginActivity) { event ->
+                            event.getContentIfNotHandled()?.let { error ->
+                                if (!error) {
+                                    authenticationViewModel.user.observe(this@LoginActivity) { event ->
+                                        event.getContentIfNotHandled()?.let {
+                                            loginViewModel.saveData(it.token, it.name)
+                                            Toast.makeText(this@LoginActivity,
+                                                getString(R.string.login_success),
+                                                Toast.LENGTH_LONG).show()
 
-                        val intent = Intent(this@LoginActivity, MainAdminActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
+                                            val intent = Intent(this@LoginActivity,
+                                                MainAdminActivity::class.java)
+                                            intent.flags =
+                                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                            startActivity(intent)
+                                            finish()
+                                        }
+                                    }
+                                } else {
+                                    emailEditText.error =
+                                        getString(R.string.wrong_password_and_email)
+                                    passwordEditText.error =
+                                        getString(R.string.wrong_password_and_email)
+
+                                    Toast.makeText(this@LoginActivity,
+                                        getString(R.string.login_failed), Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -99,9 +118,16 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupAccount() {
-        binding.registerTextView.setOnClickListener {
-            val intent = Intent(this@LoginActivity, SignupActivity::class.java)
-            startActivity(intent)
+        binding.apply {
+            registerTextView.setOnClickListener {
+                emailEditTextLayout.error = null
+                passwordEditTextLayout.error = null
+                emailEditText.apply { text?.clear() }
+                passwordEditText.apply { text?.clear() }
+
+                val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

@@ -62,7 +62,7 @@ class MainAdminActivity : AppCompatActivity() {
         )[MainAdminViewModel::class.java]
 
         mainAdminViewModel.getUser().observe(this) { user ->
-            if (!user.isLogin) {
+            if (!user.isLogin || user.token.isEmpty()) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
