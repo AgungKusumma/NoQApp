@@ -9,6 +9,7 @@ import android.util.Patterns
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -16,6 +17,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.ViewModelFactory
+import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.SignupViewModel
 import com.capstoneproject.noqapp.databinding.ActivitySignupBinding
 import com.capstoneproject.noqapp.model.UserModel
@@ -26,6 +28,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private lateinit var signupViewModel: SignupViewModel
+    private lateinit var authenticationViewModel: AuthenticationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,8 @@ class SignupActivity : AppCompatActivity() {
             this,
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[SignupViewModel::class.java]
+
+        authenticationViewModel = AuthenticationViewModel.getInstance(this)
     }
 
     private fun setupAction() {
@@ -77,17 +82,33 @@ class SignupActivity : AppCompatActivity() {
                     !email.isValidEmail() -> {
                         emailEditTextLayout.error
                     }
-                    password.length < 6 -> {
+                    password.length < 8 -> {
                         passwordEditTextLayout.error
                     }
                     else -> {
-                        signupViewModel.saveUser(UserModel(name, email, password, false))
-                        Toast.makeText(this@SignupActivity,
-                            getString(R.string.success_create_account),
-                            Toast.LENGTH_LONG).show()
-                        val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        signupViewModel.saveUser(UserModel(name, email, password, false, "token"))
+                        authenticationViewModel.userRegister(name, email, password)
+                        authenticationViewModel.error.observe(this@SignupActivity) { event ->
+                            event.getContentIfNotHandled()?.let { error ->
+                                if (!error) {
+                                    Toast.makeText(this@SignupActivity,
+                                        getString(R.string.success_create_account),
+                                        Toast.LENGTH_LONG).show()
+                                    val intent =
+                                        Intent(this@SignupActivity, LoginActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    AlertDialog.Builder(this@SignupActivity).apply {
+                                        setTitle(getString(R.string.register_failed))
+                                        setMessage(getString(R.string.error_register_failed))
+                                        setPositiveButton(getString(R.string.close)) { _, _ -> }
+                                        create()
+                                        show()
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

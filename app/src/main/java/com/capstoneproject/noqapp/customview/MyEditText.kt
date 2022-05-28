@@ -32,7 +32,7 @@ class MyEditText : AppCompatEditText {
 
             override fun onTextChanged(s: CharSequence?, start: Int, after: Int, count: Int) {
                 passwordLength = start + count
-                if (passwordLength < 6) {
+                if (passwordLength < 8) {
                     error = context.getString(R.string.password_validation)
                 }
             }

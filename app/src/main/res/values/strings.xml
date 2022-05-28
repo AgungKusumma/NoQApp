@@ -18,7 +18,7 @@
     <string name="password">Password</string>
     <string name="login_success">Login Success</string>
     <string name="success_create_account">Account Created Successfully</string>
-    <string name="password_validation">Min 6 Characters</string>
+    <string name="password_validation">Min 8 Characters</string>
     <string name="logo_app">Logo App</string>
     <string name="login_failed">Login Failed</string>
     <string name="logout_success">Logout Successfully</string>
@@ -28,6 +28,9 @@
     <string name="enter_name">Enter Name</string>
     <string name="enter_format_email">Enter the correct email format</string>
     <string name="noq_app">NoQ App</string>
+    <string name="close">Close</string>
+    <string name="register_failed">Register Failed!</string>
+    <string name="error_register_failed">Check your connection \nand Email must be valid and unique</string>
 
     <string-array name="timeStamp">
         <item>20 April 2022</item>

@@ -1,5 +1,6 @@
 package com.capstoneproject.noqapp.model
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -16,8 +17,23 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 preferences[NAME_KEY] ?: "",
                 preferences[EMAIL_KEY] ?: "",
                 preferences[PASSWORD_KEY] ?: "",
-                preferences[STATE_KEY] ?: false
+                preferences[STATE_KEY] ?: false,
+                preferences[TOKEN_KEY] ?: ""
             )
+        }
+    }
+
+    fun getToken(): Flow<String> {
+        return dataStore.data.map {
+            it[TOKEN_KEY] ?: ""
+        }
+    }
+
+    suspend fun saveData(token: String, name: String) {
+        dataStore.edit {
+            it[TOKEN_KEY] = token
+            it[NAME_KEY] = name
+            Log.d("UserPreference", "Token Saved! Token : $token")
         }
     }
 
@@ -50,6 +66,7 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val PASSWORD_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
+        private val TOKEN_KEY = stringPreferencesKey("token")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {
