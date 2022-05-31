@@ -16,12 +16,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.capstoneproject.noqapp.R
-import com.capstoneproject.noqapp.ViewModelFactory
 import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.SignupViewModel
 import com.capstoneproject.noqapp.databinding.ActivitySignupBinding
 import com.capstoneproject.noqapp.model.UserModel
 import com.capstoneproject.noqapp.model.UserPreference
+import com.capstoneproject.noqapp.model.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 

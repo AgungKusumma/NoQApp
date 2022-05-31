@@ -1,4 +1,4 @@
-package com.capstoneproject.noqapp
+package com.capstoneproject.noqapp.main.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

@@ -45,6 +45,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/fab_home"
         android:src="@drawable/logout"
+        app:backgroundTint="@color/maroon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

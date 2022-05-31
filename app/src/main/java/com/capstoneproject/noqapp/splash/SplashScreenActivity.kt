@@ -10,13 +10,13 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.capstoneproject.noqapp.MainViewModel
-import com.capstoneproject.noqapp.ViewModelFactory
-import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
-import com.capstoneproject.noqapp.dataStore
 import com.capstoneproject.noqapp.databinding.ActivitySplashScreenBinding
+import com.capstoneproject.noqapp.main.activity.MainActivity
+import com.capstoneproject.noqapp.main.activity.dataStore
+import com.capstoneproject.noqapp.main.viewmodel.MainViewModel
 import com.capstoneproject.noqapp.model.UserPreference
+import com.capstoneproject.noqapp.model.ViewModelFactory
 
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -58,7 +58,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         mainViewModel.getUser().observe(this) { user ->
             if (user.isLogin) {
-                startActivity(Intent(this, MainAdminActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 finish()
             } else {
