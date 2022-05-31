@@ -13,10 +13,6 @@ class LoginViewModel(private val pref: UserPreference) : ViewModel() {
         return pref.getUser().asLiveData()
     }
 
-    fun getToken(): LiveData<String> {
-        return pref.getToken().asLiveData()
-    }
-
     fun saveData(token: String?, name: String?) {
         viewModelScope.launch {
             if (token != null && name != null) {

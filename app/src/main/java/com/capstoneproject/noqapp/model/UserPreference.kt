@@ -23,12 +23,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    fun getToken(): Flow<String> {
-        return dataStore.data.map {
-            it[TOKEN_KEY] ?: ""
-        }
-    }
-
     suspend fun saveData(token: String, name: String) {
         dataStore.edit {
             it[TOKEN_KEY] = token

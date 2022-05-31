@@ -15,20 +15,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstoneproject.noqapp.R
-import com.capstoneproject.noqapp.ViewModelFactory
 import com.capstoneproject.noqapp.admin.adapter.ListOrderAdapter
 import com.capstoneproject.noqapp.admin.model.MainAdminViewModel
 import com.capstoneproject.noqapp.admin.model.Order
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivityMainAdminBinding
 import com.capstoneproject.noqapp.model.UserPreference
+import com.capstoneproject.noqapp.model.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class MainAdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainAdminBinding
     private lateinit var mainAdminViewModel: MainAdminViewModel
-    private lateinit var rvHeroes: RecyclerView
+    private lateinit var rvOrders: RecyclerView
     private val list = ArrayList<Order>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,15 +70,15 @@ class MainAdminActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerList() {
-        rvHeroes = binding.rvOrders
-        rvHeroes.setHasFixedSize(true)
+        rvOrders = binding.rvOrders
+        rvOrders.setHasFixedSize(true)
 
         list.addAll(listOrders)
 
-        rvHeroes.layoutManager = LinearLayoutManager(this)
+        rvOrders.layoutManager = LinearLayoutManager(this)
 
         val listOrderAdapter = ListOrderAdapter(list)
-        rvHeroes.adapter = listOrderAdapter
+        rvOrders.adapter = listOrderAdapter
     }
 
     private val listOrders: ArrayList<Order>
@@ -88,13 +88,13 @@ class MainAdminActivity : AppCompatActivity() {
             val dataName = resources.getStringArray(R.array.custName)
             val dataPrice = resources.getStringArray(R.array.totalPrice)
             val dataListOrder = resources.getStringArray(R.array.listOrder)
-            val listHero = ArrayList<Order>()
+            val listOrder = ArrayList<Order>()
             for (i in dataName.indices) {
-                val hero =
+                val order =
                     Order(dataTime[i], dataCode[i], dataName[i], dataPrice[i], dataListOrder[i])
-                listHero.add(hero)
+                listOrder.add(order)
             }
-            return listHero
+            return listOrder
         }
 
     private fun setupAction() {

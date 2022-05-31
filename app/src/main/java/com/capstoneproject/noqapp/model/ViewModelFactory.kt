@@ -1,11 +1,11 @@
-package com.capstoneproject.noqapp
+package com.capstoneproject.noqapp.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.capstoneproject.noqapp.admin.model.MainAdminViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.LoginViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.SignupViewModel
-import com.capstoneproject.noqapp.model.UserPreference
+import com.capstoneproject.noqapp.main.viewmodel.MainViewModel
 
 class ViewModelFactory(private val pref: UserPreference) : ViewModelProvider.NewInstanceFactory() {
 
