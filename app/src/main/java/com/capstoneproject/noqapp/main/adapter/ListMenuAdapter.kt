@@ -1,4 +1,4 @@
-package com.capstoneproject.noqapp.main
+package com.capstoneproject.noqapp.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -30,6 +30,8 @@ class MainAdminActivity : AppCompatActivity() {
     private lateinit var mainAdminViewModel: MainAdminViewModel
     private lateinit var rvOrders: RecyclerView
     private val list = ArrayList<Order>()
+    private val timeInterval = 2000
+    private var mBackPressed: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +64,7 @@ class MainAdminActivity : AppCompatActivity() {
         )[MainAdminViewModel::class.java]
 
         mainAdminViewModel.getUser().observe(this) { user ->
-            if (!user.isLogin || user.token.isEmpty()) {
+            if (!user.isLogin || !user.isAdmin || user.token.isEmpty()) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
@@ -103,5 +105,15 @@ class MainAdminActivity : AppCompatActivity() {
             Toast.makeText(this@MainAdminActivity,
                 getString(R.string.logout_success), Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onBackPressed() {
+        if (mBackPressed + timeInterval > System.currentTimeMillis()) {
+            super.onBackPressed()
+            return
+        } else {
+            Toast.makeText(baseContext, getString(R.string.back_btn), Toast.LENGTH_SHORT).show()
+        }
+        mBackPressed = System.currentTimeMillis()
     }
 }

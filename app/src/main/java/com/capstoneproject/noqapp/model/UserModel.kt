@@ -20,4 +20,7 @@ data class UserModel(
 
     @field:SerializedName("token")
     val token: String,
+
+    @field:SerializedName("isAdmin")
+    val isAdmin: Boolean,
 ) : Parcelable

@@ -86,7 +86,9 @@ class SignupActivity : AppCompatActivity() {
                         passwordEditTextLayout.error
                     }
                     else -> {
-                        signupViewModel.saveUser(UserModel(name, email, password, false, "token"))
+                        signupViewModel.saveUser(
+                            UserModel(name, email, password, false, "token",false)
+                        )
                         authenticationViewModel.userRegister(name, email, password)
                         authenticationViewModel.error.observe(this@SignupActivity) { event ->
                             event.getContentIfNotHandled()?.let { error ->

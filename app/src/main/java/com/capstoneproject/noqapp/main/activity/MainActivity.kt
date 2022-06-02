@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivityMainBinding
-import com.capstoneproject.noqapp.main.ListMenuAdapter
+import com.capstoneproject.noqapp.main.adapter.ListMenuAdapter
 import com.capstoneproject.noqapp.main.viewmodel.MainViewModel
 import com.capstoneproject.noqapp.model.ItemMenu
 import com.capstoneproject.noqapp.model.UserPreference
@@ -31,9 +31,11 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var rvItemMenu: RecyclerView
-    private val list = ArrayList<ItemMenu>()
+    private var list = ArrayList<ItemMenu>()
     private var itemsInCart: MutableList<ItemMenu>? = null
     private var itemCount = 0
+    private val timeInterval = 2000
+    private var mBackPressed: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +68,7 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
         )[MainViewModel::class.java]
 
         mainViewModel.getUser().observe(this) { user ->
-            if (!user.isLogin) {
+            if (!user.isLogin || user.token.isEmpty()) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
@@ -144,5 +146,15 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
             }
             "Order $itemCount Items".also { binding.btnOrder.text = it }
         }
+    }
+
+    override fun onBackPressed() {
+        if (mBackPressed + timeInterval > System.currentTimeMillis()) {
+            super.onBackPressed()
+            return
+        } else {
+            Toast.makeText(baseContext, getString(R.string.back_btn), Toast.LENGTH_SHORT).show()
+        }
+        mBackPressed = System.currentTimeMillis()
     }
 }

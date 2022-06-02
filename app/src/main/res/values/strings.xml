@@ -34,11 +34,13 @@
     <string name="drink_menu">Drink Menu</string>
     <string name="menu_name">Menu Name</string>
     <string name="price_menu">Rp. %1$s</string>
+    <string name="total">Total</string>
     <string name="add">Add</string>
     <string name="add_image">Add Image</string>
     <string name="minus_image">Minus Image</string>
     <string name="count">0</string>
     <string name="order">Order %1$s Items</string>
+    <string name="back_btn">Press "Back" Button Again to Exit</string>
 
     <string-array name="timeStamp">
         <item>20 April 2022</item>
@@ -104,7 +106,7 @@
         <item>https://images.unsplash.com/photo-1608659029048-b4a72736ab13</item>
         <item>https://images.unsplash.com/photo-1637401817405-a87e3955423c</item>
         <item>https://images.unsplash.com/photo-1600271886742-f049cd451bba</item>
-        <item tools:ignore="TypographyDashes">https://images.unsplash.com/photo–1639059700210-501d8d907939</item>
+        <item tools:ignore="TypographyDashes">https://images.unsplash.com/photo-1639059700210-501d8d907939</item>
     </string-array>
 
 </resources>
