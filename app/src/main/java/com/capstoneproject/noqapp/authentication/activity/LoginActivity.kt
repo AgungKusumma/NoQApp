@@ -13,6 +13,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.capstoneproject.noqapp.R
+import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
 import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.LoginViewModel
 import com.capstoneproject.noqapp.databinding.ActivityLoginBinding
@@ -87,17 +88,25 @@ class LoginActivity : AppCompatActivity() {
                                 if (!error) {
                                     authenticationViewModel.user.observe(this@LoginActivity) { event ->
                                         event.getContentIfNotHandled()?.let {
-                                            loginViewModel.saveData(it.token, it.name)
+                                            loginViewModel.saveData(it.token, it.isAdmin)
+                                            if (it.isAdmin) {
+                                                val intent = Intent(this@LoginActivity,
+                                                    MainAdminActivity::class.java)
+                                                intent.flags =
+                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                startActivity(intent)
+                                                finish()
+                                            } else {
+                                                val intent = Intent(this@LoginActivity,
+                                                    MainActivity::class.java)
+                                                intent.flags =
+                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                startActivity(intent)
+                                                finish()
+                                            }
                                             Toast.makeText(this@LoginActivity,
                                                 getString(R.string.login_success),
                                                 Toast.LENGTH_LONG).show()
-
-                                            val intent = Intent(this@LoginActivity,
-                                                MainActivity::class.java)
-                                            intent.flags =
-                                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                            startActivity(intent)
-                                            finish()
                                         }
                                     }
                                 } else {
