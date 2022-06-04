@@ -87,7 +87,7 @@ class SignupActivity : AppCompatActivity() {
                     }
                     else -> {
                         signupViewModel.saveUser(
-                            UserModel(name, email, password, false, "token",false)
+                            UserModel(name, email, password, false, "token", false)
                         )
                         authenticationViewModel.userRegister(name, email, password)
                         authenticationViewModel.error.observe(this@SignupActivity) { event ->
@@ -108,6 +108,7 @@ class SignupActivity : AppCompatActivity() {
                                         create()
                                         show()
                                     }
+                                    emailEditText.error = getString(R.string.enter_unique_email)
                                 }
                             }
                         }

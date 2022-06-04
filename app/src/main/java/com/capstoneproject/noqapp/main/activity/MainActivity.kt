@@ -85,13 +85,14 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
 
         val listMenuAdapter = ListMenuAdapter(list, this)
         rvItemMenu.adapter = listMenuAdapter
+
     }
 
     private val listMenu: ArrayList<ItemMenu>
         get() {
             val dataPhoto = resources.getStringArray(R.array.data_photo)
             val dataName = resources.getStringArray(R.array.data_name)
-            val dataPrice = resources.getStringArray(R.array.data_price)
+            val dataPrice = resources.getIntArray(R.array.data_price)
             val listMenu = ArrayList<ItemMenu>()
             for (i in dataName.indices) {
                 val menu = ItemMenu(dataPhoto[i], dataName[i], dataPrice[i])
@@ -101,10 +102,22 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
         }
 
     private fun setupAction() {
+        val listOrder = ArrayList<ItemMenu>()
+
         binding.fabLogout.setOnClickListener {
             mainViewModel.logout()
             Toast.makeText(this@MainActivity,
                 getString(R.string.logout_success), Toast.LENGTH_LONG).show()
+        }
+
+        binding.btnOrder.setOnClickListener {
+            itemsInCart?.let { listOrder.addAll(it) }
+
+            val intent = Intent(this@MainActivity, DetailOrderActivity::class.java)
+            intent.putExtra("ItemOrder", listOrder)
+            startActivity(intent)
+
+            listOrder.clear()
         }
     }
 
