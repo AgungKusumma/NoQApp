@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstoneproject.noqapp.databinding.ItemRowMenuBinding
 import com.capstoneproject.noqapp.model.ItemMenu
+import java.text.NumberFormat
+import java.util.*
 
 class ListMenuAdapter(private val listMenu: ArrayList<ItemMenu>, val clickListener: MenuList) :
     RecyclerView.Adapter<ListMenuAdapter.ListViewHolder>() {
@@ -26,12 +28,16 @@ class ListMenuAdapter(private val listMenu: ArrayList<ItemMenu>, val clickListen
     inner class ListViewHolder(private val binding: ItemRowMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(menu: ItemMenu) {
+            val localeID = Locale("in", "ID")
+            val nf: NumberFormat = NumberFormat.getInstance(localeID)
+            val priceMenu = nf.format(menu.price)
+
             binding.apply {
                 Glide.with(itemView.context)
                     .load(menu.photo)
                     .into(ivMenu)
                 tvItemName.text = menu.name
-                "Rp. ${menu.price}".also { tvItemPrice.text = it }
+                ("Rp. $priceMenu").also { tvItemPrice.text = it }
 
                 btnAddMenu.setOnClickListener {
                     menu.totalInCart = 1

@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
+            android:name=".main.activity.DetailOrderActivity"
+            android:exported="true" />
+        <activity
             android:name=".splash.SplashScreenActivity"
             android:exported="true">
             <intent-filter>

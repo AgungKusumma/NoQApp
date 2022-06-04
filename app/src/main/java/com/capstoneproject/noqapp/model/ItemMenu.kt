@@ -7,6 +7,6 @@ import kotlinx.parcelize.Parcelize
 data class ItemMenu(
     var photo: String,
     var name: String,
-    var price: String,
+    var price: Int,
     var totalInCart: Int = 0,
 ) : Parcelable

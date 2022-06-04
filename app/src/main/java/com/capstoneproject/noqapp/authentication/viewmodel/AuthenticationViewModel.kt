@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.capstoneproject.noqapp.model.UserRepository
 import com.capstoneproject.noqapp.api.FileUploadResponse
 import com.capstoneproject.noqapp.model.UserModel
+import com.capstoneproject.noqapp.model.UserRepository
 import com.capstoneproject.noqapp.utils.Event
 import com.capstoneproject.noqapp.utils.Injection
 import retrofit2.Call
@@ -64,7 +64,7 @@ class AuthenticationViewModel(private val userRepository: UserRepository) : View
                 if (response.isSuccessful) {
                     _error.value = Event(false)
                 } else {
-                    Log.e(SIGNUP, "onResponse fail: ")
+                    Log.e(SIGNUP, "onResponse fail: ${response.message()}")
                     _message.value = Event(response.message())
                     _error.value = Event(true)
                 }

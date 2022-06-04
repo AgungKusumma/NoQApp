@@ -30,7 +30,8 @@
     <string name="noq_app">NoQ App</string>
     <string name="close">Close</string>
     <string name="register_failed">Register Failed!</string>
-    <string name="error_register_failed">Check your connection \nand Email must be valid and unique</string>
+    <string name="error_register_failed">Check your connection \nand Email must be unique</string>
+    <string name="enter_unique_email">Email must be unique</string>
     <string name="drink_menu">Drink Menu</string>
     <string name="menu_name">Menu Name</string>
     <string name="price_menu">Rp. %1$s</string>
@@ -39,7 +40,7 @@
     <string name="add_image">Add Image</string>
     <string name="minus_image">Minus Image</string>
     <string name="count">0</string>
-    <string name="order">Order %1$s Items</string>
+    <string name="order">Order</string>
     <string name="back_btn">Press "Back" Button Again to Exit</string>
 
     <string-array name="timeStamp">
@@ -91,14 +92,14 @@
         <item>Pineapple Juice</item>
     </string-array>
 
-    <string-array name="data_price">
-        <item>20.000</item>
-        <item>30.000</item>
-        <item>35.000</item>
-        <item>25.000</item>
-        <item>15.000</item>
-        <item>20.000</item>
-    </string-array>
+    <integer-array name="data_price">
+        <item>20000</item>
+        <item>30000</item>
+        <item>35000</item>
+        <item>25000</item>
+        <item>15000</item>
+        <item>20000</item>
+    </integer-array>
 
     <string-array name="data_photo">
         <item>https://images.unsplash.com/photo-1595609093453-ae6849030ce5</item>
