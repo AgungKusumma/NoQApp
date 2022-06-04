@@ -14,6 +14,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.admin.adapter.ListOrderAdapter
 import com.capstoneproject.noqapp.admin.model.MainAdminViewModel
@@ -101,9 +102,20 @@ class MainAdminActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding.fabLogout.setOnClickListener {
-            mainAdminViewModel.logout()
-            Toast.makeText(this@MainAdminActivity,
-                getString(R.string.logout_success), Toast.LENGTH_LONG).show()
+            val alert =
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            alert.titleText = getString(R.string.logout)
+            alert.contentText = getString(R.string.text_logout)
+            alert.confirmText = getString(R.string.yes)
+            alert.cancelText = getString(R.string.no)
+            alert.contentTextSize = 18
+            alert.setCancelable(false)
+            alert.setConfirmClickListener {
+                mainAdminViewModel.logout()
+                Toast.makeText(this@MainAdminActivity,
+                    getString(R.string.logout_success), Toast.LENGTH_LONG).show()
+            }
+            alert.show()
         }
     }
 

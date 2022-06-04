@@ -28,9 +28,9 @@
     <string name="enter_name">Enter Name</string>
     <string name="enter_format_email">Enter the correct email format</string>
     <string name="noq_app">NoQ App</string>
-    <string name="close">Close</string>
     <string name="register_failed">Register Failed!</string>
     <string name="error_register_failed">Check your connection \nand Email must be unique</string>
+    <string name="error_login_failed">Check your connection \nand Email or Password don\'t match</string>
     <string name="enter_unique_email">Email must be unique</string>
     <string name="drink_menu">Drink Menu</string>
     <string name="menu_name">Menu Name</string>
@@ -42,6 +42,13 @@
     <string name="count">0</string>
     <string name="order">Order</string>
     <string name="back_btn">Press "Back" Button Again to Exit</string>
+    <string name="order_sucess">Order Success!</string>
+    <string name="order_text_content">Please Wait For Your Order!</string>
+    <string name="text_ok">OK</string>
+    <string name="logout">Logout</string>
+    <string name="text_logout">Are you sure you want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string-array name="timeStamp">
         <item>20 April 2022</item>
