@@ -15,6 +15,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivityMainBinding
@@ -104,12 +105,6 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
     private fun setupAction() {
         val listOrder = ArrayList<ItemMenu>()
 
-        binding.fabLogout.setOnClickListener {
-            mainViewModel.logout()
-            Toast.makeText(this@MainActivity,
-                getString(R.string.logout_success), Toast.LENGTH_LONG).show()
-        }
-
         binding.btnOrder.setOnClickListener {
             itemsInCart?.let { listOrder.addAll(it) }
 
@@ -118,6 +113,24 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
             startActivity(intent)
 
             listOrder.clear()
+        }
+
+        binding.fabLogout.setOnClickListener {
+            val alert =
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            alert.titleText = getString(R.string.logout)
+            alert.contentText = getString(R.string.text_logout)
+            alert.confirmText = getString(R.string.yes)
+            alert.cancelText = getString(R.string.no)
+            alert.contentTextSize = 18
+            alert.setCancelable(false)
+            alert.setConfirmClickListener {
+                mainViewModel.logout()
+                Toast.makeText(this@MainActivity,
+                    getString(R.string.logout_success), Toast.LENGTH_LONG).show()
+            }
+            alert.show()
+
         }
     }
 

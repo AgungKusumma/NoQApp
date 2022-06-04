@@ -1,13 +1,15 @@
 package com.capstoneproject.noqapp.main.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.databinding.ActivityDetailOrderBinding
 import com.capstoneproject.noqapp.main.adapter.ListUserOrderAdapter
 import com.capstoneproject.noqapp.model.ItemMenu
@@ -28,6 +30,7 @@ class DetailOrderActivity : AppCompatActivity() {
 
         setupView()
         showRecyclerList()
+        setupAction()
     }
 
     private fun setupView() {
@@ -46,7 +49,6 @@ class DetailOrderActivity : AppCompatActivity() {
     private fun showRecyclerList() {
         val itemMenu = intent.getParcelableArrayListExtra<ItemMenu>("ItemOrder")
 
-        Log.e("Detail ", "$itemMenu")
         rvItemOrder = binding.rvItemOrder
         rvItemOrder.setHasFixedSize(true)
 
@@ -62,16 +64,29 @@ class DetailOrderActivity : AppCompatActivity() {
 
         if (itemMenu != null) {
             for (i in 0..itemMenu.size.minus(1)) {
-
                 val price = itemMenu[i]
 
                 subTotalAmount += price.price * price.totalInCart
-
-                Log.e("Detail Price ", "$subTotalAmount")
-                Log.e("PriceMenu ", "${price?.price}")
-
             }
             ("Rp. " + nf.format(subTotalAmount)).also { binding.tvTotalPrice.text = it }
+        }
+    }
+
+    private fun setupAction() {
+        binding.btnOrder.setOnClickListener {
+            val alert = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            alert.titleText = getString(R.string.order_sucess)
+            alert.contentText = getString(R.string.order_text_content)
+            alert.confirmText = getString(R.string.text_ok)
+            alert.contentTextSize = 18
+            alert.setCancelable(false)
+            alert.setConfirmClickListener {
+                val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+            alert.show()
         }
     }
 

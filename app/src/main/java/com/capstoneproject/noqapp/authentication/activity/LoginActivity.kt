@@ -12,6 +12,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
 import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
@@ -104,19 +105,27 @@ class LoginActivity : AppCompatActivity() {
                                                 startActivity(intent)
                                                 finish()
                                             }
+
                                             Toast.makeText(this@LoginActivity,
                                                 getString(R.string.login_success),
                                                 Toast.LENGTH_LONG).show()
                                         }
                                     }
                                 } else {
+                                    val alert =
+                                        SweetAlertDialog(this@LoginActivity,
+                                            SweetAlertDialog.ERROR_TYPE)
+                                    alert.titleText = getString(R.string.login_failed)
+                                    alert.contentText = getString(R.string.error_login_failed)
+                                    alert.confirmText = getString(R.string.text_ok)
+                                    alert.contentTextSize = 18
+                                    alert.setCancelable(false)
+                                    alert.show()
+
                                     emailEditText.error =
                                         getString(R.string.wrong_password_and_email)
                                     passwordEditText.error =
                                         getString(R.string.wrong_password_and_email)
-
-                                    Toast.makeText(this@LoginActivity,
-                                        getString(R.string.login_failed), Toast.LENGTH_LONG).show()
                                 }
                             }
                         }

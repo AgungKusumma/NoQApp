@@ -15,6 +15,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.SignupViewModel
@@ -101,13 +102,15 @@ class SignupActivity : AppCompatActivity() {
                                     startActivity(intent)
                                     finish()
                                 } else {
-                                    AlertDialog.Builder(this@SignupActivity).apply {
-                                        setTitle(getString(R.string.register_failed))
-                                        setMessage(getString(R.string.error_register_failed))
-                                        setPositiveButton(getString(R.string.close)) { _, _ -> }
-                                        create()
-                                        show()
-                                    }
+                                    val alert =
+                                        SweetAlertDialog(this@SignupActivity,
+                                            SweetAlertDialog.ERROR_TYPE)
+                                    alert.titleText = getString(R.string.register_failed)
+                                    alert.contentText = getString(R.string.error_register_failed)
+                                    alert.confirmText = getString(R.string.text_ok)
+                                    alert.contentTextSize = 18
+                                    alert.setCancelable(false)
+                                    alert.show()
                                     emailEditText.error = getString(R.string.enter_unique_email)
                                 }
                             }
