@@ -72,12 +72,15 @@ class SignupActivity : AppCompatActivity() {
                 when {
                     name.isEmpty() -> {
                         nameEditText.error = getString(R.string.enter_name)
+                        nameEditText.requestFocus(1)
                     }
                     email.isEmpty() -> {
                         emailEditText.error = getString(R.string.enter_email)
+                        emailEditText.requestFocus(1)
                     }
                     password.isEmpty() -> {
                         passwordEditText.error = getString(R.string.enter_password)
+                        passwordEditText.requestFocus(1)
                     }
                     !email.isValidEmail() -> {
                         emailEditTextLayout.error
@@ -110,7 +113,9 @@ class SignupActivity : AppCompatActivity() {
                                     alert.contentTextSize = 18
                                     alert.setCancelable(false)
                                     alert.show()
+
                                     emailEditText.error = getString(R.string.enter_unique_email)
+                                    emailEditText.requestFocus(1)
                                 }
                             }
                         }
@@ -121,9 +126,18 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun setupAccount() {
-        binding.loginTextView.setOnClickListener {
-            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
-            startActivity(intent)
+        binding.apply {
+            loginTextView.setOnClickListener {
+                nameEditText.error = null
+                emailEditText.error = null
+                passwordEditText.error = null
+                nameEditText.apply { text?.clear() }
+                emailEditText.apply { text?.clear() }
+                passwordEditText.apply { text?.clear() }
+
+                val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

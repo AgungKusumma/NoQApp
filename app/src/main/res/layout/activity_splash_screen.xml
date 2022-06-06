@@ -11,10 +11,10 @@
 
     <ImageView
         android:id="@+id/ivSplash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
         android:contentDescription="@string/logo_app"
-        app:srcCompat="@drawable/cafe" />
+        app:srcCompat="@drawable/noq" />
 
     <TextView
         android:id="@+id/tvApp"
