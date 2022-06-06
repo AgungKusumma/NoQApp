@@ -49,6 +49,12 @@
     <string name="text_logout">Are you sure you want to Logout?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="table_code_hint">Table Code</string>
+    <string name="enter_table_code">Enter Table Code</string>
+    <string name="ex_table_code">code123</string>
+    <string name="image_send_button">Image Send Button</string>
+    <string name="check_button_above">Click the check button above</string>
+    <string name="check_button">Click the check button</string>
 
     <string-array name="timeStamp">
         <item>20 April 2022</item>

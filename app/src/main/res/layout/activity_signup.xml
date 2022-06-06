@@ -45,8 +45,7 @@
                 android:ems="1"
                 android:fontFamily="@font/poppins"
                 android:hint="@string/name"
-                android:inputType="text"
-                app:passwordToggleEnabled="true" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

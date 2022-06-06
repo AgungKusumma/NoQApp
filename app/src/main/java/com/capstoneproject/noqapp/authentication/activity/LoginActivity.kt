@@ -77,9 +77,11 @@ class LoginActivity : AppCompatActivity() {
                 when {
                     email.isEmpty() -> {
                         emailEditText.error = getString(R.string.enter_email)
+                        emailEditText.requestFocus(1)
                     }
                     password.isEmpty() -> {
                         passwordEditText.error = getString(R.string.enter_password)
+                        passwordEditText.requestFocus(1)
                     }
                     else -> {
                         loginViewModel.login()
@@ -126,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
                                         getString(R.string.wrong_password_and_email)
                                     passwordEditText.error =
                                         getString(R.string.wrong_password_and_email)
+                                    emailEditText.requestFocus(1)
                                 }
                             }
                         }
@@ -138,8 +141,8 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAccount() {
         binding.apply {
             registerTextView.setOnClickListener {
-                emailEditTextLayout.error = null
-                passwordEditTextLayout.error = null
+                emailEditText.error = null
+                passwordEditText.error = null
                 emailEditText.apply { text?.clear() }
                 passwordEditText.apply { text?.clear() }
 

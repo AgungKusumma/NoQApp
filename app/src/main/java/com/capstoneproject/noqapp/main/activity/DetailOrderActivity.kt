@@ -3,9 +3,12 @@ package com.capstoneproject.noqapp.main.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.Gravity
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -73,20 +76,47 @@ class DetailOrderActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.btnOrder.setOnClickListener {
-            val alert = SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            alert.titleText = getString(R.string.order_sucess)
-            alert.contentText = getString(R.string.order_text_content)
-            alert.confirmText = getString(R.string.text_ok)
-            alert.contentTextSize = 18
-            alert.setCancelable(false)
-            alert.setConfirmClickListener {
-                val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
+        binding.apply {
+            imgBtnCode.setOnClickListener {
+                if (codeEditText.text.isNullOrEmpty()) {
+                    codeEditText.error = getString(R.string.enter_table_code)
+                    codeEditText.requestFocus(1)
+                } else {
+                    tvCode.isVisible = true
+                    tvTableCode.isVisible = true
+                    codeEditText.error = null
+                    tvTableCode.text = codeEditText.text.toString()
+                }
             }
-            alert.show()
+
+            btnOrder.setOnClickListener {
+                val code = tvTableCode.text.toString()
+                if (code.isNotEmpty()) {
+                    val alert =
+                        SweetAlertDialog(this@DetailOrderActivity, SweetAlertDialog.SUCCESS_TYPE)
+                    alert.titleText = getString(R.string.order_sucess)
+                    alert.contentText = getString(R.string.order_text_content)
+                    alert.confirmText = getString(R.string.text_ok)
+                    alert.contentTextSize = 18
+                    alert.setCancelable(false)
+                    alert.setConfirmClickListener {
+                        val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                    alert.show()
+                } else {
+                    val toast = Toast.makeText(this@DetailOrderActivity,
+                        getString(R.string.check_button_above),
+                        Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
+                    codeEditText.error = getString(R.string.check_button)
+                    codeEditText.requestFocus(1)
+                }
+            }
         }
     }
 
