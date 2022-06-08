@@ -1,17 +1,28 @@
 package com.capstoneproject.noqapp.main.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.databinding.ItemRowMenuBinding
-import com.capstoneproject.noqapp.model.ItemMenu
+import com.capstoneproject.noqapp.model.MenuModel
 import java.text.NumberFormat
 import java.util.*
 
-class ListMenuAdapter(private val listMenu: ArrayList<ItemMenu>, val clickListener: MenuList) :
+class ListMenuAdapter(private val clickListener: MenuList) :
     RecyclerView.Adapter<ListMenuAdapter.ListViewHolder>() {
+
+    private var listMenu = ArrayList<MenuModel>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setListMenu(menu: ArrayList<MenuModel>) {
+        listMenu.clear()
+        listMenu.addAll(menu)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view =
@@ -27,14 +38,16 @@ class ListMenuAdapter(private val listMenu: ArrayList<ItemMenu>, val clickListen
 
     inner class ListViewHolder(private val binding: ItemRowMenuBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: ItemMenu) {
+        fun bind(menu: MenuModel) {
             val localeID = Locale("in", "ID")
             val nf: NumberFormat = NumberFormat.getInstance(localeID)
             val priceMenu = nf.format(menu.price)
 
             binding.apply {
                 Glide.with(itemView.context)
-                    .load(menu.photo)
+                    .load(menu.photoUrl)
+                    .placeholder(R.drawable.image_default)
+                    .error(R.drawable.image_default)
                     .into(ivMenu)
                 tvItemName.text = menu.name
                 ("Rp. $priceMenu").also { tvItemPrice.text = it }
@@ -74,9 +87,9 @@ class ListMenuAdapter(private val listMenu: ArrayList<ItemMenu>, val clickListen
     }
 
     interface MenuList {
-        fun addMenu(menu: ItemMenu)
-        fun updateMenu(menu: ItemMenu)
-        fun removeMenu(menu: ItemMenu)
+        fun addMenu(menu: MenuModel)
+        fun updateMenu(menu: MenuModel)
+        fun removeMenu(menu: MenuModel)
     }
 
 }

@@ -2,6 +2,7 @@ package com.capstoneproject.noqapp.api
 
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -14,4 +15,7 @@ interface ApiService {
     fun userLogin(
         @Body user: Map<String, String>,
     ): Call<FileUploadResponse>
+
+    @GET("menus")
+    fun getMenu(): Call<FileUploadResponse>
 }

@@ -5,11 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstoneproject.noqapp.databinding.ItemRowUserOrderBinding
-import com.capstoneproject.noqapp.model.ItemMenu
+import com.capstoneproject.noqapp.model.MenuModel
 import java.text.NumberFormat
 import java.util.*
 
-class ListUserOrderAdapter(private val listMenu: List<ItemMenu>) :
+class ListUserOrderAdapter(private val listMenu: List<MenuModel>) :
     RecyclerView.Adapter<ListUserOrderAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -29,14 +29,14 @@ class ListUserOrderAdapter(private val listMenu: List<ItemMenu>) :
 
     inner class ListViewHolder(private val binding: ItemRowUserOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(menu: ItemMenu) {
+        fun bind(menu: MenuModel) {
             val localeID = Locale("in", "ID")
             val nf: NumberFormat = NumberFormat.getInstance(localeID)
             val priceMenu = nf.format(menu.price)
 
             binding.apply {
                 Glide.with(itemView.context)
-                    .load(menu.photo)
+                    .load(menu.photoUrl)
                     .into(ivMenu)
                 tvItemName.text = menu.name
                 ("Rp. $priceMenu").also { tvItemPrice.text = it }
