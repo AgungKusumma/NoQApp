@@ -15,7 +15,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.databinding.ActivityDetailOrderBinding
 import com.capstoneproject.noqapp.main.adapter.ListUserOrderAdapter
-import com.capstoneproject.noqapp.model.ItemMenu
+import com.capstoneproject.noqapp.model.MenuModel
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,7 +24,7 @@ class DetailOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailOrderBinding
     private lateinit var rvItemOrder: RecyclerView
-    private val list = ArrayList<ItemMenu>()
+    private val list = ArrayList<MenuModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class DetailOrderActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerList() {
-        val itemMenu = intent.getParcelableArrayListExtra<ItemMenu>("ItemOrder")
+        val itemMenu = intent.getParcelableArrayListExtra<MenuModel>("ItemOrder")
 
         rvItemOrder = binding.rvItemOrder
         rvItemOrder.setHasFixedSize(true)

@@ -2,8 +2,12 @@ package com.capstoneproject.noqapp.model
 
 import com.capstoneproject.noqapp.api.ApiService
 import com.capstoneproject.noqapp.api.FileUploadResponse
+import com.capstoneproject.noqapp.utils.ApiInterceptor
 import com.capstoneproject.noqapp.utils.AppExecutors
+import okhttp3.OkHttpClient
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class UserRepository private constructor(
     private val apiService: ApiService,
@@ -26,6 +30,19 @@ class UserRepository private constructor(
         )
 
         return apiService.userRegister(user)
+    }
+
+    fun getMenu(token: String): Call<FileUploadResponse> {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(ApiInterceptor(token))
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://34.101.136.198:3000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        val mApiService = retrofit.create(ApiService::class.java)
+        return mApiService.getMenu()
     }
 
     companion object {

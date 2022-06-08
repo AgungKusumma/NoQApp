@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name">NoQApp</string>
     <string name="time_stamp">TimeStamp</string>
     <string name="name">Name</string>
@@ -55,6 +55,7 @@
     <string name="image_send_button">Image Send Button</string>
     <string name="check_button_above">Click the check button above</string>
     <string name="check_button">Click the check button</string>
+    <string name="no_data">No Data \n Check your connection!</string>
 
     <string-array name="timeStamp">
         <item>20 April 2022</item>
@@ -94,33 +95,6 @@
         <item>30.000</item>
         <item>40.000</item>
         <item>50.000</item>
-    </string-array>
-
-    <string-array name="data_name">
-        <item>Coffee Milk</item>
-        <item>Oreo Shake</item>
-        <item>Oreo Brownie</item>
-        <item>Hot Chocolate</item>
-        <item>Orange Juice</item>
-        <item>Pineapple Juice</item>
-    </string-array>
-
-    <integer-array name="data_price">
-        <item>20000</item>
-        <item>30000</item>
-        <item>35000</item>
-        <item>25000</item>
-        <item>15000</item>
-        <item>20000</item>
-    </integer-array>
-
-    <string-array name="data_photo">
-        <item>https://images.unsplash.com/photo-1595609093453-ae6849030ce5</item>
-        <item tools:ignore="TypographyDashes">https://images.unsplash.com/photo-1609234492483-99f24d2c711b</item>
-        <item>https://images.unsplash.com/photo-1608659029048-b4a72736ab13</item>
-        <item>https://images.unsplash.com/photo-1637401817405-a87e3955423c</item>
-        <item>https://images.unsplash.com/photo-1600271886742-f049cd451bba</item>
-        <item tools:ignore="TypographyDashes">https://images.unsplash.com/photo-1639059700210-501d8d907939</item>
     </string-array>
 
 </resources>
