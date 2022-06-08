@@ -1,18 +1,24 @@
 package com.capstoneproject.noqapp.admin.adapter
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import com.capstoneproject.noqapp.admin.activity.OrderActivity
 import com.capstoneproject.noqapp.admin.model.Order
 import com.capstoneproject.noqapp.databinding.ItemRowOrderBinding
 
-class ListOrderAdapter(private val listOrder: ArrayList<Order>) :
-    RecyclerView.Adapter<ListOrderAdapter.ListViewHolder>() {
+class ListOrderAdapter : RecyclerView.Adapter<ListOrderAdapter.ListViewHolder>() {
+
+    private var listOrder = ArrayList<Order>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setListOrder(menu: ArrayList<Order>) {
+        listOrder.clear()
+        listOrder.addAll(menu)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view =
@@ -30,25 +36,15 @@ class ListOrderAdapter(private val listOrder: ArrayList<Order>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(order: Order) {
             binding.apply {
-                tvItemTimeStamp.text = order.timeStamp
-                tvItemName.text = order.username
-                "Table Code : ${order.tableCode}".also { tvItemCode.text = it }
-                "Total Price : Rp. ${order.price}".also { tvItemPrice.text = it }
+                "Status : ${order.status}".also { tvItemStatus.text = it }
+                "Table Code : ${order.tableId}".also { tvItemCode.text = it }
+                "Total Price : Rp. ${order.totalPrice}".also { tvItemPrice.text = it }
 
                 btnDetail.setOnClickListener {
                     val intent = Intent(itemView.context, OrderActivity::class.java)
-                    intent.putExtra("Order", order)
+                    intent.putExtra("Order", order.orderId)
 
-                    val optionsCompat: ActivityOptionsCompat =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            itemView.context as Activity,
-                            Pair(tvItemTimeStamp, "time"),
-                            Pair(tvItemCode, "code"),
-                            Pair(tvItemName, "name"),
-                            Pair(tvItemOrder, "list"),
-                            Pair(tvItemPrice, "price")
-                        )
-                    itemView.context.startActivity(intent, optionsCompat.toBundle())
+                    itemView.context.startActivity(intent)
                 }
             }
         }

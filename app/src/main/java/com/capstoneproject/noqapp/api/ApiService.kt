@@ -4,6 +4,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
     @POST("auth/register")
@@ -18,4 +19,12 @@ interface ApiService {
 
     @GET("menus")
     fun getMenu(): Call<FileUploadResponse>
+
+    @GET("orders")
+    fun getOrder(): Call<FileUploadResponseAdmin>
+
+    @GET("orders/{orderId}")
+    fun getDetailOrder(
+        @Path("orderId") orderId: String,
+    ): Call<FileUploadResponseAdmin>
 }

@@ -3,15 +3,14 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="center|top"
     android:layout_margin="16dp"
-    card_view:cardBackgroundColor="@color/gray_200"
     card_view:cardCornerRadius="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="8dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -40,26 +39,28 @@
             android:textColor="@color/black"
             android:textSize="22sp"
             android:textStyle="bold"
-            card_view:layout_constraintBottom_toBottomOf="@+id/fab_home"
+            card_view:layout_constraintBottom_toTopOf="@+id/tv_item_status"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/fab_home"
             card_view:layout_constraintTop_toTopOf="@+id/fab_home" />
 
         <TextView
-            android:id="@+id/tv_item_timeStamp"
+            android:id="@+id/tv_item_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/poppins"
-            android:textSize="18sp"
-            android:transitionName="time"
-            card_view:layout_constraintBottom_toTopOf="@id/tv_item_code"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            card_view:layout_constraintBottom_toTopOf="@+id/tv_item_code"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/fab_home"
-            tools:text="@string/time_stamp" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_detail"
+            tools:text="@string/status" />
 
         <TextView
             android:id="@+id/tv_item_code"
@@ -68,37 +69,36 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:transitionName="code"
-            card_view:layout_constraintBottom_toTopOf="@+id/tv_item_name"
+            card_view:layout_constraintBottom_toTopOf="@id/tv_order_id"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_item_timeStamp"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_status"
             tools:text="@string/table_code" />
 
         <TextView
-            android:id="@+id/tv_item_name"
+            android:id="@+id/tv_order_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/poppins_bold"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:transitionName="name"
-            card_view:layout_constraintBottom_toTopOf="@+id/tv_item_order"
+            android:textSize="18sp"
+            card_view:layout_constraintBottom_toTopOf="@id/tv_user_id"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@id/tv_item_code"
-            tools:text="@string/name" />
+            tools:text="@string/order_id" />
 
         <TextView
-            android:id="@+id/tv_item_order"
+            android:id="@+id/tv_user_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -107,15 +107,14 @@
             android:fontFamily="@font/poppins"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:transitionName="list"
-            card_view:layout_constraintBottom_toTopOf="@id/tv_item_price"
+            card_view:layout_constraintBottom_toTopOf="@id/tv_totalPrice"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_item_name"
-            tools:text="List of Order" />
+            card_view:layout_constraintTop_toBottomOf="@id/tv_order_id"
+            tools:text="@string/user_id" />
 
         <TextView
-            android:id="@+id/tv_item_price"
+            android:id="@+id/tv_totalPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -125,13 +124,43 @@
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:transitionName="price"
+            card_view:layout_constraintBottom_toTopOf="@+id/rv_orders"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@id/tv_user_id"
+            tools:text="@string/total_price" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_orders"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_item_order"
-            tools:text="@string/total_price" />
+            card_view:layout_constraintTop_toBottomOf="@id/tv_totalPrice"
+            tools:listitem="@layout/item_row_detail_order" />
+
+        <TextView
+            android:id="@+id/ivEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

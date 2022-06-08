@@ -2,6 +2,7 @@ package com.capstoneproject.noqapp.model
 
 import com.capstoneproject.noqapp.api.ApiService
 import com.capstoneproject.noqapp.api.FileUploadResponse
+import com.capstoneproject.noqapp.api.FileUploadResponseAdmin
 import com.capstoneproject.noqapp.utils.ApiInterceptor
 import com.capstoneproject.noqapp.utils.AppExecutors
 import okhttp3.OkHttpClient
@@ -43,6 +44,32 @@ class UserRepository private constructor(
             .build()
         val mApiService = retrofit.create(ApiService::class.java)
         return mApiService.getMenu()
+    }
+
+    fun getOrder(token: String): Call<FileUploadResponseAdmin> {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(ApiInterceptor(token))
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://34.101.136.198:3000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        val mApiService = retrofit.create(ApiService::class.java)
+        return mApiService.getOrder()
+    }
+
+    fun getDetailOrder(orderId: String, token: String): Call<FileUploadResponseAdmin> {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(ApiInterceptor(token))
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://34.101.136.198:3000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        val mApiService = retrofit.create(ApiService::class.java)
+        return mApiService.getDetailOrder(orderId)
     }
 
     companion object {
