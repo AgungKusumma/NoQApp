@@ -2,7 +2,7 @@ package com.capstoneproject.noqapp.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.capstoneproject.noqapp.admin.model.MainAdminViewModel
+import com.capstoneproject.noqapp.admin.viewmodel.MainAdminViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.LoginViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.SignupViewModel
 import com.capstoneproject.noqapp.main.viewmodel.MainViewModel

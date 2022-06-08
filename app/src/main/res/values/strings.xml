@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">NoQApp</string>
-    <string name="time_stamp">TimeStamp</string>
     <string name="name">Name</string>
     <string name="table_code">Table Code : %1$s</string>
     <string name="detail">Detail</string>
@@ -56,45 +55,12 @@
     <string name="check_button_above">Click the check button above</string>
     <string name="check_button">Click the check button</string>
     <string name="no_data">No Data \n Check your connection!</string>
-
-    <string-array name="timeStamp">
-        <item>20 April 2022</item>
-        <item>17 Mei 2022</item>
-        <item>6 Juni 2022</item>
-        <item>18 Juli 2022</item>
-        <item>15 Agustus 2022</item>
-    </string-array>
-
-    <string-array name="tableCode">
-        <item>code1dkaiokoaw</item>
-        <item>code2dkaiokoaw</item>
-        <item>code3dkaiokoaw</item>
-        <item>code4dkaiokoaw</item>
-        <item>code5dkaiokoaw</item>
-    </string-array>
-
-    <string-array name="custName">
-        <item>Agung</item>
-        <item>Kusuma</item>
-        <item>Oop</item>
-        <item>Rocky</item>
-        <item>Vasco</item>
-    </string-array>
-
-    <string-array name="listOrder">
-        <item>Ice Coffe (1), Cappucino (5), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2)</item>
-        <item>Ice Coffe (2), Cappucino (4), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2)</item>
-        <item>Ice Coffe (3), Cappucino (3), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2)</item>
-        <item>Ice Coffe (4), Cappucino (2), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2)</item>
-        <item>Ice Coffe (5), Cappucino (1), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2), Ice Coffe (1), Cappucino (2)</item>
-    </string-array>
-
-    <string-array name="totalPrice">
-        <item>10.000</item>
-        <item>20.000</item>
-        <item>30.000</item>
-        <item>40.000</item>
-        <item>50.000</item>
-    </string-array>
+    <string name="status">Status : %1$s</string>
+    <string name="order_id">Order ID : %1$s</string>
+    <string name="user_id">User ID : %1$s</string>
+    <string name="menu_id">Menu ID : %1$s</string>
+    <string name="price">Price : %1$s</string>
+    <string name="quantity">Quantity : %1$s</string>
+    <string name="sub_total">SubTotal : %1$s</string>
 
 </resources>

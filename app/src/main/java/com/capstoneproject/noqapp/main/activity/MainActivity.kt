@@ -135,13 +135,13 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
             alert.cancelText = getString(R.string.no)
             alert.contentTextSize = 18
             alert.setCancelable(false)
+            alert.show()
             alert.setConfirmClickListener {
+                alert.dismiss()
                 mainViewModel.logout()
                 Toast.makeText(this@MainActivity,
                     getString(R.string.logout_success), Toast.LENGTH_LONG).show()
             }
-            alert.show()
-
         }
     }
 

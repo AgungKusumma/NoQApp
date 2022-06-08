@@ -99,14 +99,15 @@ class DetailOrderActivity : AppCompatActivity() {
                     alert.confirmText = getString(R.string.text_ok)
                     alert.contentTextSize = 18
                     alert.setCancelable(false)
+                    alert.show()
                     alert.setConfirmClickListener {
+                        alert.dismiss()
                         val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                         finish()
                     }
-                    alert.show()
                 } else {
                     val toast = Toast.makeText(this@DetailOrderActivity,
                         getString(R.string.check_button_above),
