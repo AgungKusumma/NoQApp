@@ -73,8 +73,10 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
 
         mainMenuViewModel = MainMenuViewModel.getInstance(this)
 
+        val customer = getString(R.string.role_customer)
+
         mainViewModel.getUser().observe(this) { user ->
-            if (!user.isLogin || user.token.isEmpty()) {
+            if (!user.isLogin || user.token.isEmpty() || user.role != customer) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }

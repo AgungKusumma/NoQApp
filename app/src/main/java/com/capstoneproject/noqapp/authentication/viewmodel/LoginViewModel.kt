@@ -13,10 +13,10 @@ class LoginViewModel(private val pref: UserPreference) : ViewModel() {
         return pref.getUser().asLiveData()
     }
 
-    fun saveData(token: String?, admin: Boolean?) {
+    fun saveData(token: String?, role: String?) {
         viewModelScope.launch {
-            if (token != null && admin != null) {
-                pref.saveData(token, admin)
+            if (token != null && role != null) {
+                pref.saveData(token, role)
             }
         }
     }

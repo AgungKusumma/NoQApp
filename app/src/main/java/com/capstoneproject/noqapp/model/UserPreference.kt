@@ -18,16 +18,16 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
                 preferences[EMAIL_KEY] ?: "",
                 preferences[PASSWORD_KEY] ?: "",
                 preferences[STATE_KEY] ?: false,
-                preferences[TOKEN_KEY] ?: "",
-                preferences[ADMIN_KEY] ?: false,
+                preferences[ROLE_KEY] ?: "",
+                preferences[TOKEN_KEY] ?: ""
             )
         }
     }
 
-    suspend fun saveData(token: String, admin: Boolean) {
+    suspend fun saveData(token: String, role: String) {
         dataStore.edit {
             it[TOKEN_KEY] = token
-            it[ADMIN_KEY] = admin
+            it[ROLE_KEY] = role
             Log.d("UserPreference", "Token Saved! Token : $token")
         }
     }
@@ -62,8 +62,8 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         private val EMAIL_KEY = stringPreferencesKey("email")
         private val PASSWORD_KEY = stringPreferencesKey("password")
         private val STATE_KEY = booleanPreferencesKey("state")
+        private val ROLE_KEY = stringPreferencesKey("role")
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val ADMIN_KEY = booleanPreferencesKey("admin")
 
         fun getInstance(dataStore: DataStore<Preferences>): UserPreference {
             return INSTANCE ?: synchronized(this) {

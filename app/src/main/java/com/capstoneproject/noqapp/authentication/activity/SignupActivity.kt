@@ -93,7 +93,7 @@ class SignupActivity : AppCompatActivity() {
                     else -> {
                         it.hideKeyboard()
                         signupViewModel.saveUser(
-                            UserModel(name, email, password, false, "token", false)
+                            UserModel(name, email, password, false, "role", "token")
                         )
                         authenticationViewModel.userRegister(name, email, password)
                         authenticationViewModel.error.observe(this@SignupActivity) { event ->

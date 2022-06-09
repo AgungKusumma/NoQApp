@@ -68,8 +68,10 @@ class MainAdminActivity : AppCompatActivity() {
 
         mainAdminMenuViewModel = MainAdminMenuViewModel.getInstance(this)
 
+        val waiter = getString(R.string.role_waiter)
+
         mainAdminViewModel.getUser().observe(this) { user ->
-            if (!user.isLogin || !user.isAdmin || user.token.isEmpty()) {
+            if (!user.isLogin || user.role != waiter || user.token.isEmpty()) {
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
