@@ -34,6 +34,13 @@ class UserRepository private constructor(
         return ApiConfig().getApiWithToken(token).getMenu()
     }
 
+    fun orderItem(
+        requestOrder: RequestOrder,
+        token: String,
+    ): Call<FileUploadResponseAdmin> {
+        return ApiConfig().getApiWithToken(token).orderItem(requestOrder)
+    }
+
     fun getOrder(token: String): Call<FileUploadResponseAdmin> {
         return ApiConfig().getApiWithToken(token).getOrder()
     }

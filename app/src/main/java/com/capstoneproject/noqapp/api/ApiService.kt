@@ -1,7 +1,12 @@
 package com.capstoneproject.noqapp.api
 
+import com.capstoneproject.noqapp.model.RequestOrder
 import retrofit2.Call
 import retrofit2.http.*
+
+import retrofit2.http.FormUrlEncoded
+
+import retrofit2.http.POST
 
 interface ApiService {
     @POST("auth/register")
@@ -16,6 +21,11 @@ interface ApiService {
 
     @GET("menus")
     fun getMenu(): Call<FileUploadResponse>
+
+    @POST("orders/new")
+    fun orderItem(
+        @Body requestBody: RequestOrder
+    ): Call<FileUploadResponseAdmin>
 
     @GET("orders")
     fun getOrder(): Call<FileUploadResponseAdmin>

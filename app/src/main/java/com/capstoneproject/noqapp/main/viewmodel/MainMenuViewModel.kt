@@ -20,7 +20,9 @@ class MainMenuViewModel(private val userRepository: UserRepository) : ViewModel(
     val menu: LiveData<ArrayList<MenuModel>> = _menu
 
     private var _message = MutableLiveData<Event<String>>()
-    val message: LiveData<Event<String>> = _message
+
+    private var _error = MutableLiveData<Event<Boolean>>()
+    val error: LiveData<Event<Boolean>> = _error
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -35,12 +37,14 @@ class MainMenuViewModel(private val userRepository: UserRepository) : ViewModel(
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
+                    _error.postValue(Event(false))
                     val userResponse = response.body()?.data
                     userRepository.appExecutors.networkIO.execute {
                         _menu.postValue(userResponse!!)
                     }
                 } else {
                     Log.e(TAG, "onResponse fail: ${response.message()}")
+                    _error.postValue(Event(true))
                     _message.value = Event(response.message())
                 }
             }
@@ -51,6 +55,7 @@ class MainMenuViewModel(private val userRepository: UserRepository) : ViewModel(
             ) {
                 Log.e(TAG, "onFailure: " + t.message)
                 _isLoading.value = false
+                _error.postValue(Event(true))
                 _message.value = Event(t.message.toString())
             }
         })

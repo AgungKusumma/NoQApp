@@ -35,6 +35,7 @@ class ListDetailOrderAdapter : RecyclerView.Adapter<ListDetailOrderAdapter.ListV
         fun bind(order: DetailOrderModel) {
             binding.apply {
                 "Menu ID : ${order.menuId}".also { tvIdMenu.text = it }
+                "Menu Name : ${order.menuName}".also { tvMenuName.text = it }
                 "Price : Rp. ${order.menuPrice}".also { tvPrice.text = it }
                 "Quantity : ${order.amount}".also { tvQuantity.text = it }
                 "SubTotal : Rp. ${order.subtotal}".also { tvSubtotalPrice.text = it }

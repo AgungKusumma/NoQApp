@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
@@ -84,15 +86,16 @@ class LoginActivity : AppCompatActivity() {
                         passwordEditText.requestFocus(1)
                     }
                     else -> {
+                        it.hideKeyboard()
                         loginViewModel.login()
                         authenticationViewModel.userLogin(email, password)
                         authenticationViewModel.error.observe(this@LoginActivity) { event ->
                             event.getContentIfNotHandled()?.let { error ->
                                 if (!error) {
                                     authenticationViewModel.user.observe(this@LoginActivity) { event ->
-                                        event.getContentIfNotHandled()?.let {
-                                            loginViewModel.saveData(it.token, it.isAdmin)
-                                            if (it.isAdmin) {
+                                        event.getContentIfNotHandled()?.let { user ->
+                                            loginViewModel.saveData(user.token, user.isAdmin)
+                                            if (user.isAdmin) {
                                                 val intent = Intent(this@LoginActivity,
                                                     MainAdminActivity::class.java)
                                                 intent.flags =
@@ -150,5 +153,11 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 }

@@ -9,6 +9,9 @@ data class DetailOrderModel(
     @field:SerializedName("menuId")
     val menuId: String,
 
+    @field:SerializedName("menuName")
+    val menuName: String,
+
     @field:SerializedName("menuPrice")
     val menuPrice: Int,
 
