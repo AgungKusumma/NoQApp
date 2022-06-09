@@ -70,5 +70,7 @@
     <string name="failed_update">Update Failed</string>
     <string name="network_error">Check your connection!</string>
     <string name="order_failed">Failed to Order</string>
+    <string name="role_customer">CUSTOMER</string>
+    <string name="role_waiter">WAITER</string>
 
 </resources>

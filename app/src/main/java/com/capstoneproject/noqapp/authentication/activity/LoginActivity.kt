@@ -76,6 +76,8 @@ class LoginActivity : AppCompatActivity() {
             loginButton.setOnClickListener {
                 val email = emailEditText.text.toString()
                 val password = passwordEditText.text.toString()
+                val waiter = getString(R.string.role_waiter)
+
                 when {
                     email.isEmpty() -> {
                         emailEditText.error = getString(R.string.enter_email)
@@ -94,8 +96,8 @@ class LoginActivity : AppCompatActivity() {
                                 if (!error) {
                                     authenticationViewModel.user.observe(this@LoginActivity) { event ->
                                         event.getContentIfNotHandled()?.let { user ->
-                                            loginViewModel.saveData(user.token, user.isAdmin)
-                                            if (user.isAdmin) {
+                                            loginViewModel.saveData(user.token, user.role)
+                                            if (user.role == waiter) {
                                                 val intent = Intent(this@LoginActivity,
                                                     MainAdminActivity::class.java)
                                                 intent.flags =

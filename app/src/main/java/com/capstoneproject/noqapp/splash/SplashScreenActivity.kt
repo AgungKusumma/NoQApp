@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivitySplashScreenBinding
@@ -57,14 +58,17 @@ class SplashScreenActivity : AppCompatActivity() {
             ViewModelFactory(UserPreference.getInstance(dataStore))
         )[MainViewModel::class.java]
 
+        val customer = getString(R.string.role_customer)
+        val waiter = getString(R.string.role_waiter)
+
         mainViewModel.getUser().observe(this) { user ->
             when {
-                user.isLogin && user.isAdmin -> {
+                user.isLogin && user.role == waiter -> {
                     startActivity(Intent(this, MainAdminActivity::class.java))
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     finish()
                 }
-                user.isLogin -> {
+                user.isLogin && user.role == customer -> {
                     startActivity(Intent(this, MainActivity::class.java))
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     finish()
