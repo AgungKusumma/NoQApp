@@ -1,6 +1,7 @@
 package com.capstoneproject.noqapp.api
 
 import androidx.viewbinding.BuildConfig
+import com.capstoneproject.noqapp.utils.ApiInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,6 +16,18 @@ class ApiConfig {
         }
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://34.101.136.198:3000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ApiService::class.java)
+    }
+
+    fun getApiWithToken(token: String): ApiService {
+        val client = OkHttpClient.Builder()
+            .addInterceptor(ApiInterceptor(token))
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("http://34.101.136.198:3000/")

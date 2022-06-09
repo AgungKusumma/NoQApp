@@ -1,10 +1,7 @@
 package com.capstoneproject.noqapp.api
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
     @POST("auth/register")
@@ -26,5 +23,12 @@ interface ApiService {
     @GET("orders/{orderId}")
     fun getDetailOrder(
         @Path("orderId") orderId: String,
+    ): Call<FileUploadResponseAdmin>
+
+    @FormUrlEncoded
+    @PATCH("orders/{orderId}")
+    fun updateStatus(
+        @Path("orderId") orderId: String,
+        @Field("status") status: String,
     ): Call<FileUploadResponseAdmin>
 }

@@ -6,19 +6,20 @@
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_add.xml" value="0.2203125" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_baseline_check_box_24.xml" value="0.2203125" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.2203125" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_check.xml" value="0.2203125" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_code.xml" value="0.2203125" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_min.xml" value="0.2203125" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/drawable/ic_send.xml" value="0.2203125" />
-        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_detail_order.xml" value="0.33" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_detail_order.xml" value="0.22" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_main_admin.xml" value="0.25" />
-        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_order.xml" value="0.22" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_order.xml" value="0.25" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_signup.xml" value="0.22" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.22" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/item_row_detail_order.xml" value="0.25" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/item_row_menu.xml" value="0.25" />
-        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/item_row_order.xml" value="0.22" />
+        <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/item_row_order.xml" value="0.25" />
         <entry key="..\:/#Kotlin/Bangkit/capstone-project/NoQApp/app/src/main/res/layout/item_row_user_order.xml" value="0.33" />
       </map>
     </option>
