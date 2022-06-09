@@ -62,5 +62,12 @@
     <string name="price">Price : %1$s</string>
     <string name="quantity">Quantity : %1$s</string>
     <string name="sub_total">SubTotal : %1$s</string>
+    <string name="status_canceled">CANCELED</string>
+    <string name="status_pending">PENDING</string>
+    <string name="status_done">DONE</string>
+    <string name="update_status">Update Status</string>
+    <string name="success_update">Success Update</string>
+    <string name="failed_update">Update Failed</string>
+    <string name="network_error">Check your connection!</string>
 
 </resources>

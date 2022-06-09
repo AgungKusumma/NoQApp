@@ -10,9 +10,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FileUploadResponse(
-    @field:SerializedName("message")
-    val message: String,
-
     @field:SerializedName("loginResult")
     val loginResult: UserModel,
 
@@ -22,6 +19,9 @@ data class FileUploadResponse(
 
 @Parcelize
 data class FileUploadResponseAdmin(
+    @field:SerializedName("message")
+    val message: String,
+
     @field:SerializedName("orderId")
     val orderId: String,
 

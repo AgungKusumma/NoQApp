@@ -1,14 +1,11 @@
 package com.capstoneproject.noqapp.model
 
+import com.capstoneproject.noqapp.api.ApiConfig
 import com.capstoneproject.noqapp.api.ApiService
 import com.capstoneproject.noqapp.api.FileUploadResponse
 import com.capstoneproject.noqapp.api.FileUploadResponseAdmin
-import com.capstoneproject.noqapp.utils.ApiInterceptor
 import com.capstoneproject.noqapp.utils.AppExecutors
-import okhttp3.OkHttpClient
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class UserRepository private constructor(
     private val apiService: ApiService,
@@ -34,42 +31,20 @@ class UserRepository private constructor(
     }
 
     fun getMenu(token: String): Call<FileUploadResponse> {
-        val client = OkHttpClient.Builder()
-            .addInterceptor(ApiInterceptor(token))
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://34.101.136.198:3000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        val mApiService = retrofit.create(ApiService::class.java)
-        return mApiService.getMenu()
+        return ApiConfig().getApiWithToken(token).getMenu()
     }
 
     fun getOrder(token: String): Call<FileUploadResponseAdmin> {
-        val client = OkHttpClient.Builder()
-            .addInterceptor(ApiInterceptor(token))
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://34.101.136.198:3000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        val mApiService = retrofit.create(ApiService::class.java)
-        return mApiService.getOrder()
+        return ApiConfig().getApiWithToken(token).getOrder()
     }
 
     fun getDetailOrder(orderId: String, token: String): Call<FileUploadResponseAdmin> {
-        val client = OkHttpClient.Builder()
-            .addInterceptor(ApiInterceptor(token))
-            .build()
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://34.101.136.198:3000/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
-            .build()
-        val mApiService = retrofit.create(ApiService::class.java)
-        return mApiService.getDetailOrder(orderId)
+        return ApiConfig().getApiWithToken(token).getDetailOrder(orderId)
+    }
+
+    fun updateStatus(orderId: String, status: String, token: String)
+            : Call<FileUploadResponseAdmin> {
+        return ApiConfig().getApiWithToken(token).updateStatus(orderId, status)
     }
 
     companion object {

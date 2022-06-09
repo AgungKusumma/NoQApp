@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
@@ -14,10 +15,12 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.admin.adapter.ListDetailOrderAdapter
 import com.capstoneproject.noqapp.admin.viewmodel.DetailOrderViewModel
 import com.capstoneproject.noqapp.admin.viewmodel.MainAdminViewModel
+import com.capstoneproject.noqapp.admin.viewmodel.UpdateOrderViewModel
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivityOrderBinding
 import com.capstoneproject.noqapp.model.UserPreference
@@ -30,6 +33,7 @@ class OrderActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrderBinding
     private lateinit var mainAdminViewModel: MainAdminViewModel
     private lateinit var detailOrderViewModel: DetailOrderViewModel
+    private lateinit var updateOrderViewModel: UpdateOrderViewModel
     private lateinit var adapter: ListDetailOrderAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +68,7 @@ class OrderActivity : AppCompatActivity() {
         )[MainAdminViewModel::class.java]
 
         detailOrderViewModel = DetailOrderViewModel.getInstance(this)
+        updateOrderViewModel = UpdateOrderViewModel.getInstance(this)
 
         mainAdminViewModel.getUser().observe(this) { user ->
             if (!user.isLogin || !user.isAdmin || user.token.isEmpty()) {
@@ -103,6 +108,7 @@ class OrderActivity : AppCompatActivity() {
                 tvItemCode.text = getString(R.string.table_code, it.tableId)
                 tvTotalPrice.text = getString(R.string.total_price, it.totalPrice.toString())
                 tvItemStatus.text = getString(R.string.status, it.status)
+                btnUpdate.isVisible = true
             }
         }
 
@@ -121,9 +127,72 @@ class OrderActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateOrderStatus() {
+        val order = intent.getStringExtra("Order")
+
+        mainAdminViewModel.getUser().observe(this) { user ->
+            if (order != null) {
+                val newStatus = binding.tvUpdateStatus.text.toString()
+                updateOrderViewModel.updateStatus(order, newStatus, user.token)
+            }
+        }
+
+        updateOrderViewModel.error.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { error ->
+                if (!error) {
+                    val alert =
+                        SweetAlertDialog(this,
+                            SweetAlertDialog.SUCCESS_TYPE)
+                    alert.titleText = getString(R.string.success_update)
+                    alert.confirmText = getString(R.string.text_ok)
+                    alert.contentTextSize = 18
+                    alert.setCancelable(false)
+                    alert.show()
+                    alert.setConfirmClickListener {
+                        alert.dismiss()
+                        val intent = Intent(this, MainAdminActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    val alert =
+                        SweetAlertDialog(this,
+                            SweetAlertDialog.ERROR_TYPE)
+                    alert.titleText = getString(R.string.failed_update)
+                    alert.contentText = getString(R.string.network_error)
+                    alert.confirmText = getString(R.string.text_ok)
+                    alert.contentTextSize = 18
+                    alert.setCancelable(false)
+                    alert.show()
+                }
+            }
+        }
+    }
+
     private fun setupAction() {
-        binding.fabHome.setOnClickListener {
-            onBackPressed()
+        binding.apply {
+            fabHome.setOnClickListener {
+                onBackPressed()
+            }
+
+            rgStatus.setOnCheckedChangeListener { _, i ->
+                val rb: RadioButton = findViewById(i)
+                val newStatus = rb.text.toString()
+
+                fabUpdate.isVisible = true
+                tvUpdateStatus.text = newStatus
+            }
+
+            btnUpdate.setOnClickListener {
+                rgStatus.isVisible = true
+                btnUpdate.isVisible = false
+            }
+
+            fabUpdate.setOnClickListener {
+                updateOrderStatus()
+            }
         }
     }
 
