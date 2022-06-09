@@ -23,7 +23,9 @@ class DetailOrderViewModel(private val userRepository: UserRepository) : ViewMod
     val menu: LiveData<ArrayList<DetailOrderModel>> = _menu
 
     private var _message = MutableLiveData<Event<String>>()
-    val message: LiveData<Event<String>> = _message
+
+    private var _error = MutableLiveData<Event<Boolean>>()
+    val error: LiveData<Event<Boolean>> = _error
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -38,6 +40,7 @@ class DetailOrderViewModel(private val userRepository: UserRepository) : ViewMod
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
+                    _error.postValue(Event(false))
                     val userResponse = response.body()?.orderItems
                     userRepository.appExecutors.networkIO.execute {
                         _menu.postValue(userResponse!!)
@@ -45,6 +48,7 @@ class DetailOrderViewModel(private val userRepository: UserRepository) : ViewMod
                     }
                 } else {
                     Log.e(TAG, "onResponse fail: ${response.message()}")
+                    _error.postValue(Event(true))
                     _message.value = Event(response.message())
                 }
             }
@@ -55,6 +59,7 @@ class DetailOrderViewModel(private val userRepository: UserRepository) : ViewMod
             ) {
                 Log.e(TAG, "onFailure: " + t.message)
                 _isLoading.value = false
+                _error.postValue(Event(true))
                 _message.value = Event(t.message.toString())
             }
         })

@@ -58,10 +58,10 @@
     <string name="status">Status : %1$s</string>
     <string name="order_id">Order ID : %1$s</string>
     <string name="user_id">User ID : %1$s</string>
-    <string name="menu_id">Menu ID : %1$s</string>
-    <string name="price">Price : %1$s</string>
-    <string name="quantity">Quantity : %1$s</string>
-    <string name="sub_total">SubTotal : %1$s</string>
+    <string name="menu_id">Menu ID</string>
+    <string name="price">Price</string>
+    <string name="quantity">Quantity</string>
+    <string name="sub_total">SubTotal</string>
     <string name="status_canceled">CANCELED</string>
     <string name="status_pending">PENDING</string>
     <string name="status_done">DONE</string>
@@ -69,5 +69,6 @@
     <string name="success_update">Success Update</string>
     <string name="failed_update">Update Failed</string>
     <string name="network_error">Check your connection!</string>
+    <string name="order_failed">Failed to Order</string>
 
 </resources>

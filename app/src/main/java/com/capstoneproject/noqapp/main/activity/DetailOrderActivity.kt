@@ -12,13 +12,16 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.databinding.ActivityDetailOrderBinding
 import com.capstoneproject.noqapp.main.adapter.ListUserOrderAdapter
-import com.capstoneproject.noqapp.model.MenuModel
+import com.capstoneproject.noqapp.main.viewmodel.DetailOrderViewModel
+import com.capstoneproject.noqapp.main.viewmodel.MainViewModel
+import com.capstoneproject.noqapp.model.*
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -26,6 +29,8 @@ import kotlin.collections.ArrayList
 class DetailOrderActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailOrderBinding
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var detailOrderViewModel: DetailOrderViewModel
     private lateinit var rvItemOrder: RecyclerView
     private val list = ArrayList<MenuModel>()
 
@@ -35,6 +40,7 @@ class DetailOrderActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupView()
+        setupViewModel()
         showRecyclerList()
         setupAction()
     }
@@ -52,6 +58,15 @@ class DetailOrderActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    private fun setupViewModel() {
+        mainViewModel = ViewModelProvider(
+            this,
+            ViewModelFactory(UserPreference.getInstance(dataStore))
+        )[MainViewModel::class.java]
+
+        detailOrderViewModel = DetailOrderViewModel.getInstance(this)
+    }
+
     private fun showRecyclerList() {
         val itemMenu = intent.getParcelableArrayListExtra<MenuModel>("ItemOrder")
 
@@ -59,6 +74,7 @@ class DetailOrderActivity : AppCompatActivity() {
         rvItemOrder.setHasFixedSize(true)
 
         itemMenu?.let { list.addAll(it) }
+
         rvItemOrder.layoutManager = LinearLayoutManager(this)
 
         val listOrderAdapter = ListUserOrderAdapter(list)
@@ -75,6 +91,57 @@ class DetailOrderActivity : AppCompatActivity() {
                 subTotalAmount += price.price * price.totalInCart
             }
             ("Rp. " + nf.format(subTotalAmount)).also { binding.tvTotalPrice.text = it }
+        }
+    }
+
+    private fun setupOrder() {
+        val tableId = binding.tvTableCode.text.toString()
+
+        val requestBody = RequestOrder(
+            tableId = tableId,
+            orderItems = list.map {
+                OrderItems(
+                    menuId = it.menuId,
+                    amount = it.totalInCart
+                )
+            }
+        )
+
+        mainViewModel.getUser().observe(this) { user ->
+            detailOrderViewModel.orderItem(requestBody, user.token)
+        }
+
+        detailOrderViewModel.error.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { error ->
+                if (!error) {
+                    val alert =
+                        SweetAlertDialog(this@DetailOrderActivity, SweetAlertDialog.SUCCESS_TYPE)
+                    alert.titleText = getString(R.string.order_sucess)
+                    alert.contentText = getString(R.string.order_text_content)
+                    alert.confirmText = getString(R.string.text_ok)
+                    alert.contentTextSize = 18
+                    alert.setCancelable(false)
+                    alert.show()
+                    alert.setConfirmClickListener {
+                        alert.dismiss()
+                        val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    val alert =
+                        SweetAlertDialog(this,
+                            SweetAlertDialog.ERROR_TYPE)
+                    alert.titleText = getString(R.string.order_failed)
+                    alert.contentText = getString(R.string.network_error)
+                    alert.confirmText = getString(R.string.text_ok)
+                    alert.contentTextSize = 18
+                    alert.setCancelable(false)
+                    alert.show()
+                }
+            }
         }
     }
 
@@ -97,22 +164,7 @@ class DetailOrderActivity : AppCompatActivity() {
             btnOrder.setOnClickListener {
                 val code = tvTableCode.text.toString()
                 if (code.isNotEmpty()) {
-                    val alert =
-                        SweetAlertDialog(this@DetailOrderActivity, SweetAlertDialog.SUCCESS_TYPE)
-                    alert.titleText = getString(R.string.order_sucess)
-                    alert.contentText = getString(R.string.order_text_content)
-                    alert.confirmText = getString(R.string.text_ok)
-                    alert.contentTextSize = 18
-                    alert.setCancelable(false)
-                    alert.show()
-                    alert.setConfirmClickListener {
-                        alert.dismiss()
-                        val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                    }
+                    setupOrder()
                 } else {
                     val toast = Toast.makeText(this@DetailOrderActivity,
                         getString(R.string.check_button_above),

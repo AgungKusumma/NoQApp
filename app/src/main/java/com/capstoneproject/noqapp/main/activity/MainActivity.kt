@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
         setContentView(binding.root)
 
         setupView()
-        setupAction()
         setupViewModel()
+        setupAction()
         setupListMenu()
         showRecyclerList()
     }
@@ -104,12 +104,14 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
             adapter.setListMenu(it)
         }
 
-        mainMenuViewModel.message.observe(this) { event ->
-            event.getContentIfNotHandled()?.let {
-                binding.apply {
-                    ivEmpty.isVisible = true
-                    progressBar.isVisible = false
-                    rvItemMenu.adapter = null
+        mainMenuViewModel.error.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { error ->
+                if (error) {
+                    binding.apply {
+                        ivEmpty.isVisible = true
+                        progressBar.isVisible = false
+                        rvItemMenu.adapter = null
+                    }
                 }
             }
         }

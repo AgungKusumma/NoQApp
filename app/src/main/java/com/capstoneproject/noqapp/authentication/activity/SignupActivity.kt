@@ -6,8 +6,10 @@ import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
@@ -89,6 +91,7 @@ class SignupActivity : AppCompatActivity() {
                         passwordEditTextLayout.error
                     }
                     else -> {
+                        it.hideKeyboard()
                         signupViewModel.saveUser(
                             UserModel(name, email, password, false, "token", false)
                         )
@@ -139,6 +142,12 @@ class SignupActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun View.hideKeyboard() {
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
     private fun String.isValidEmail() =

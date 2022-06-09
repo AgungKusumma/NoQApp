@@ -116,12 +116,14 @@ class OrderActivity : AppCompatActivity() {
             adapter.setListOrder(it)
         }
 
-        detailOrderViewModel.message.observe(this) { event ->
-            event.getContentIfNotHandled()?.let {
-                binding.apply {
-                    ivEmpty.isVisible = true
-                    progressBar.isVisible = false
-                    rvOrders.adapter = null
+        detailOrderViewModel.error.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { error ->
+                if (error) {
+                    binding.apply {
+                        ivEmpty.isVisible = true
+                        progressBar.isVisible = false
+                        rvOrders.adapter = null
+                    }
                 }
             }
         }
