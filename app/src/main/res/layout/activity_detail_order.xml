@@ -24,7 +24,6 @@
             android:id="@+id/codeEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="1"
             android:fontFamily="@font/poppins"
             android:hint="@string/table_code_hint"
             android:inputType="text"

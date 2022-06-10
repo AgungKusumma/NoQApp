@@ -38,6 +38,14 @@ class UserRepository private constructor(
         return ApiConfig().getApiWithToken(token).getRecommend()
     }
 
+    fun getOrderHistory(token: String): Call<FileUploadResponseAdmin> {
+        return ApiConfig().getApiWithToken(token).getOrderHistory()
+    }
+
+    fun getDetailOrderHistory(orderId: String, token: String): Call<FileUploadResponseAdmin> {
+        return ApiConfig().getApiWithToken(token).getDetailOrderHistory(orderId)
+    }
+
     fun orderItem(
         requestOrder: RequestOrder,
         token: String,

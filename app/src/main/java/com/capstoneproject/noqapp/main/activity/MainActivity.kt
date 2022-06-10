@@ -177,6 +177,11 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
             listOrder.clear()
         }
 
+        binding.fabHistory.setOnClickListener {
+            val intent = Intent(this@MainActivity, HistoryActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.fabLogout.setOnClickListener {
             val alert =
                 SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)

@@ -25,6 +25,8 @@ import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivityOrderBinding
 import com.capstoneproject.noqapp.model.UserPreference
 import com.capstoneproject.noqapp.model.ViewModelFactory
+import java.text.NumberFormat
+import java.util.*
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -91,6 +93,9 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerList() {
+        val localeID = Locale("in", "ID")
+        val nf: NumberFormat = NumberFormat.getInstance(localeID)
+
         adapter = ListDetailOrderAdapter()
 
         binding.apply {
@@ -104,11 +109,13 @@ class OrderActivity : AppCompatActivity() {
         }
 
         detailOrderViewModel.order.observe(this) {
+            val totalPrice = nf.format(it.totalPrice)
+
             binding.apply {
                 tvOrderId.text = getString(R.string.order_id, it.orderId)
                 tvUserId.text = getString(R.string.user_id, it.userId)
                 tvItemCode.text = getString(R.string.table_code, it.tableId)
-                tvTotalPrice.text = getString(R.string.total_price, it.totalPrice.toString())
+                tvTotalPrice.text = getString(R.string.total_price, totalPrice)
                 tvItemStatus.text = getString(R.string.status, it.status)
                 btnUpdate.isVisible = true
             }

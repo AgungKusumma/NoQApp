@@ -124,7 +124,7 @@ class DetailOrderActivity : AppCompatActivity() {
                     alert.show()
                     alert.setConfirmClickListener {
                         alert.dismiss()
-                        val intent = Intent(this@DetailOrderActivity, MainActivity::class.java)
+                        val intent = Intent(this@DetailOrderActivity, HistoryActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)

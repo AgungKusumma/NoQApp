@@ -34,6 +34,14 @@ interface ApiService {
         @Path("orderId") orderId: String,
     ): Call<FileUploadResponseAdmin>
 
+    @GET("orders/history")
+    fun getOrderHistory(): Call<FileUploadResponseAdmin>
+
+    @GET("orders/{orderId}")
+    fun getDetailOrderHistory(
+        @Path("orderId") orderId: String,
+    ): Call<FileUploadResponseAdmin>
+
     @FormUrlEncoded
     @PATCH("orders/{orderId}")
     fun updateStatus(
