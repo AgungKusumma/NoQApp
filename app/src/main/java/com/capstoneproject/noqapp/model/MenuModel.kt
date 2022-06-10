@@ -22,4 +22,7 @@ data class MenuModel(
 	val photoUrl: String,
 
 	var totalInCart: Int = 0,
+
+	@field:SerializedName("ordered")
+	val ordered: Int,
 ) : Parcelable

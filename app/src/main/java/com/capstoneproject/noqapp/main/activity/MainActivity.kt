@@ -15,13 +15,16 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivityMainBinding
 import com.capstoneproject.noqapp.main.adapter.ListMenuAdapter
+import com.capstoneproject.noqapp.main.adapter.ListMenuRecommendAdapter
 import com.capstoneproject.noqapp.main.viewmodel.MainMenuViewModel
 import com.capstoneproject.noqapp.main.viewmodel.MainViewModel
+import com.capstoneproject.noqapp.main.viewmodel.RecommendMenuViewModel
 import com.capstoneproject.noqapp.model.MenuModel
 import com.capstoneproject.noqapp.model.UserPreference
 import com.capstoneproject.noqapp.model.ViewModelFactory
@@ -33,7 +36,9 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var mainMenuViewModel: MainMenuViewModel
+    private lateinit var recommendMenuViewModel: RecommendMenuViewModel
     private lateinit var adapter: ListMenuAdapter
+    private lateinit var adapter2: ListMenuRecommendAdapter
     private val listOrder = ArrayList<MenuModel>()
     private var itemsInCart: MutableList<MenuModel>? = null
     private var itemCount = 0
@@ -49,6 +54,7 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
         setupViewModel()
         setupAction()
         setupListMenu()
+        showRecyclerListRecommendation()
         showRecyclerList()
     }
 
@@ -72,6 +78,7 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
         )[MainViewModel::class.java]
 
         mainMenuViewModel = MainMenuViewModel.getInstance(this)
+        recommendMenuViewModel = RecommendMenuViewModel.getInstance(this)
 
         val customer = getString(R.string.role_customer)
 
@@ -87,15 +94,53 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
         mainViewModel.getUser().observe(this) { user ->
             mainMenuViewModel.getMenu(user.token)
         }
+
+        mainViewModel.getUser().observe(this) { user ->
+            recommendMenuViewModel.getRecommend(user.token)
+        }
+    }
+
+    private fun showRecyclerListRecommendation() {
+        adapter2 = ListMenuRecommendAdapter()
+
+        binding.apply {
+            rvItemMenu.layoutManager = LinearLayoutManager(
+                this@MainActivity, LinearLayoutManager.HORIZONTAL, false
+            )
+            rvItemMenu.setHasFixedSize(true)
+            rvItemMenu.adapter = adapter2
+        }
+
+        recommendMenuViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
+
+        recommendMenuViewModel.menu.observe(this) {
+            adapter2.setListMenu(it)
+            binding.tvRecommend.isVisible = true
+        }
+
+        recommendMenuViewModel.error.observe(this) { event ->
+            event.getContentIfNotHandled()?.let { error ->
+                if (error) {
+                    binding.apply {
+                        ivEmpty.isVisible = true
+                        tvRecommend.isVisible = false
+                        progressBar.isVisible = false
+                        rvItemMenu.adapter = null
+                    }
+                }
+            }
+        }
     }
 
     private fun showRecyclerList() {
         adapter = ListMenuAdapter(this)
 
         binding.apply {
-            rvItemMenu.layoutManager = GridLayoutManager(this@MainActivity, 2)
-            rvItemMenu.setHasFixedSize(true)
-            rvItemMenu.adapter = adapter
+            rvItemMenu2.layoutManager = GridLayoutManager(this@MainActivity, 2)
+            rvItemMenu2.setHasFixedSize(true)
+            rvItemMenu2.adapter = adapter
         }
 
         mainMenuViewModel.isLoading.observe(this) {
@@ -104,6 +149,7 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
 
         mainMenuViewModel.menu.observe(this) {
             adapter.setListMenu(it)
+            binding.tvAllMenu.isVisible = true
         }
 
         mainMenuViewModel.error.observe(this) { event ->
@@ -111,8 +157,9 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
                 if (error) {
                     binding.apply {
                         ivEmpty.isVisible = true
+                        tvAllMenu.isVisible = false
                         progressBar.isVisible = false
-                        rvItemMenu.adapter = null
+                        rvItemMenu2.adapter = null
                     }
                 }
             }

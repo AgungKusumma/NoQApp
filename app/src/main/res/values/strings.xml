@@ -72,5 +72,8 @@
     <string name="order_failed">Failed to Order</string>
     <string name="role_customer">CUSTOMER</string>
     <string name="role_waiter">WAITER</string>
+    <string name="menu_recommendation">Menu Recommendation</string>
+    <string name="all_menu">All Menu</string>
+    <string name="image_recommended">Image Recommended</string>
 
 </resources>
