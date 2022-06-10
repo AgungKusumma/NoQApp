@@ -34,6 +34,10 @@ class UserRepository private constructor(
         return ApiConfig().getApiWithToken(token).getMenu()
     }
 
+    fun getRecommend(token: String): Call<FileUploadResponse> {
+        return ApiConfig().getApiWithToken(token).getRecommend()
+    }
+
     fun orderItem(
         requestOrder: RequestOrder,
         token: String,
