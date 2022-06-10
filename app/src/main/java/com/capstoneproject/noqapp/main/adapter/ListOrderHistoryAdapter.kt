@@ -1,18 +1,18 @@
-package com.capstoneproject.noqapp.admin.adapter
+package com.capstoneproject.noqapp.main.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.capstoneproject.noqapp.admin.activity.OrderActivity
 import com.capstoneproject.noqapp.admin.model.Order
 import com.capstoneproject.noqapp.databinding.ItemRowOrderBinding
+import com.capstoneproject.noqapp.main.activity.DetailHistoryActivity
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ListOrderAdapter : RecyclerView.Adapter<ListOrderAdapter.ListViewHolder>() {
+class ListOrderHistoryAdapter : RecyclerView.Adapter<ListOrderHistoryAdapter.ListViewHolder>() {
 
     private var listOrder = ArrayList<Order>()
 
@@ -48,7 +48,7 @@ class ListOrderAdapter : RecyclerView.Adapter<ListOrderAdapter.ListViewHolder>()
                 "Total Price : Rp. $totalPrice".also { tvItemPrice.text = it }
 
                 btnDetail.setOnClickListener {
-                    val intent = Intent(itemView.context, OrderActivity::class.java)
+                    val intent = Intent(itemView.context, DetailHistoryActivity::class.java)
                     intent.putExtra("Order", order.orderId)
 
                     itemView.context.startActivity(intent)

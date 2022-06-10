@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.capstoneproject.noqapp" >
+    package="com.capstoneproject.noqapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -14,13 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoQApp"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m" >
+        tools:targetApi="m">
+        <activity
+            android:name=".main.activity.DetailHistoryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".main.activity.HistoryActivity"
+            android:exported="true" />
         <activity
             android:name=".main.activity.DetailOrderActivity"
             android:exported="true" />
         <activity
             android:name=".splash.SplashScreenActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

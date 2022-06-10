@@ -6,6 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.capstoneproject.noqapp.admin.model.DetailOrderModel
 import com.capstoneproject.noqapp.databinding.ItemRowDetailOrderBinding
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ListDetailOrderAdapter : RecyclerView.Adapter<ListDetailOrderAdapter.ListViewHolder>() {
 
@@ -33,12 +36,16 @@ class ListDetailOrderAdapter : RecyclerView.Adapter<ListDetailOrderAdapter.ListV
     class ListViewHolder(private val binding: ItemRowDetailOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(order: DetailOrderModel) {
+            val localeID = Locale("in", "ID")
+            val nf: NumberFormat = NumberFormat.getInstance(localeID)
+            val menuPrice = nf.format(order.menuPrice)
+            val subTotal = nf.format(order.subtotal)
+
             binding.apply {
-                "Menu ID : ${order.menuId}".also { tvIdMenu.text = it }
                 "Menu Name : ${order.menuName}".also { tvMenuName.text = it }
-                "Price : Rp. ${order.menuPrice}".also { tvPrice.text = it }
+                "Price : Rp. $menuPrice".also { tvPrice.text = it }
                 "Quantity : ${order.amount}".also { tvQuantity.text = it }
-                "SubTotal : Rp. ${order.subtotal}".also { tvSubtotalPrice.text = it }
+                "SubTotal : Rp. $subTotal".also { tvSubtotalPrice.text = it }
             }
         }
     }
