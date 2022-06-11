@@ -1,5 +1,6 @@
 package com.capstoneproject.noqapp.api
 
+import com.capstoneproject.noqapp.admin.model.AddMenuModel
 import com.capstoneproject.noqapp.model.RequestOrder
 import retrofit2.Call
 import retrofit2.http.*
@@ -47,5 +48,10 @@ interface ApiService {
     fun updateStatus(
         @Path("orderId") orderId: String,
         @Field("status") status: String,
+    ): Call<FileUploadResponseAdmin>
+
+    @POST("menus/add")
+    fun addMenu(
+        @Body menu: AddMenuModel,
     ): Call<FileUploadResponseAdmin>
 }

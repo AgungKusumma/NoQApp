@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins"
             android:hint="@string/table_code_hint"
-            android:inputType="text"
+            android:imeOptions="actionDone"
+            android:inputType="text|textImeMultiLine"
             android:maxLength="12" />
     </com.google.android.material.textfield.TextInputLayout>
 

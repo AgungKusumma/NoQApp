@@ -1,6 +1,5 @@
 package com.capstoneproject.noqapp.admin.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,9 +9,6 @@ import android.view.WindowManager
 import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -27,8 +23,6 @@ import com.capstoneproject.noqapp.model.UserPreference
 import com.capstoneproject.noqapp.model.ViewModelFactory
 import java.text.NumberFormat
 import java.util.*
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class OrderActivity : AppCompatActivity() {
 

@@ -117,7 +117,6 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
 
         recommendMenuViewModel.menu.observe(this) {
             adapter2.setListMenu(it)
-            binding.tvRecommend.isVisible = true
         }
 
         recommendMenuViewModel.error.observe(this) { event ->
@@ -129,6 +128,8 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
                         progressBar.isVisible = false
                         rvItemMenu.adapter = null
                     }
+                } else {
+                    binding.tvRecommend.isVisible = true
                 }
             }
         }
@@ -149,7 +150,6 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
 
         mainMenuViewModel.menu.observe(this) {
             adapter.setListMenu(it)
-            binding.tvAllMenu.isVisible = true
         }
 
         mainMenuViewModel.error.observe(this) { event ->
@@ -161,6 +161,8 @@ class MainActivity : AppCompatActivity(), ListMenuAdapter.MenuList {
                         progressBar.isVisible = false
                         rvItemMenu2.adapter = null
                     }
+                } else {
+                    binding.tvAllMenu.isVisible = true
                 }
             }
         }

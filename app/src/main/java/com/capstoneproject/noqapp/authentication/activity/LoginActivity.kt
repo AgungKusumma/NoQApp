@@ -16,6 +16,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.capstoneproject.noqapp.R
+import com.capstoneproject.noqapp.admin.activity.AddMenuActivity
 import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
 import com.capstoneproject.noqapp.authentication.viewmodel.AuthenticationViewModel
 import com.capstoneproject.noqapp.authentication.viewmodel.LoginViewModel
@@ -77,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
                 val email = emailEditText.text.toString()
                 val password = passwordEditText.text.toString()
                 val waiter = getString(R.string.role_waiter)
+                val admin = getString(R.string.role_admin)
 
                 when {
                     email.isEmpty() -> {
@@ -97,20 +99,31 @@ class LoginActivity : AppCompatActivity() {
                                     authenticationViewModel.user.observe(this@LoginActivity) { event ->
                                         event.getContentIfNotHandled()?.let { user ->
                                             loginViewModel.saveData(user.token, user.role)
-                                            if (user.role == waiter) {
-                                                val intent = Intent(this@LoginActivity,
-                                                    MainAdminActivity::class.java)
-                                                intent.flags =
-                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                                startActivity(intent)
-                                                finish()
-                                            } else {
-                                                val intent = Intent(this@LoginActivity,
-                                                    MainActivity::class.java)
-                                                intent.flags =
-                                                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                                startActivity(intent)
-                                                finish()
+                                            when (user.role) {
+                                                waiter -> {
+                                                    val intent = Intent(this@LoginActivity,
+                                                        MainAdminActivity::class.java)
+                                                    intent.flags =
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
+                                                admin -> {
+                                                    val intent = Intent(this@LoginActivity,
+                                                        AddMenuActivity::class.java)
+                                                    intent.flags =
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
+                                                else -> {
+                                                    val intent = Intent(this@LoginActivity,
+                                                        MainActivity::class.java)
+                                                    intent.flags =
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
                                             }
 
                                             Toast.makeText(this@LoginActivity,

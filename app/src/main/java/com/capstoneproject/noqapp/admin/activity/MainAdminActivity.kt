@@ -25,7 +25,7 @@ import com.capstoneproject.noqapp.databinding.ActivityMainAdminBinding
 import com.capstoneproject.noqapp.model.UserPreference
 import com.capstoneproject.noqapp.model.ViewModelFactory
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class MainAdminActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainAdminBinding
