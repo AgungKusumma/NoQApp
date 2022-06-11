@@ -116,7 +116,7 @@ class DetailOrderActivity : AppCompatActivity() {
                 if (!error) {
                     val alert =
                         SweetAlertDialog(this@DetailOrderActivity, SweetAlertDialog.SUCCESS_TYPE)
-                    alert.titleText = getString(R.string.order_sucess)
+                    alert.titleText = getString(R.string.order_success)
                     alert.contentText = getString(R.string.order_text_content)
                     alert.confirmText = getString(R.string.text_ok)
                     alert.contentTextSize = 18

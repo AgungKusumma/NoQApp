@@ -1,5 +1,6 @@
 package com.capstoneproject.noqapp.model
 
+import com.capstoneproject.noqapp.admin.model.AddMenuModel
 import com.capstoneproject.noqapp.api.ApiConfig
 import com.capstoneproject.noqapp.api.ApiService
 import com.capstoneproject.noqapp.api.FileUploadResponse
@@ -64,6 +65,13 @@ class UserRepository private constructor(
     fun updateStatus(orderId: String, status: String, token: String)
             : Call<FileUploadResponseAdmin> {
         return ApiConfig().getApiWithToken(token).updateStatus(orderId, status)
+    }
+
+    fun addMenu(
+        menu: AddMenuModel,
+        token: String,
+    ): Call<FileUploadResponseAdmin> {
+        return ApiConfig().getApiWithToken(token).addMenu(menu)
     }
 
     companion object {

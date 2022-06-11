@@ -11,6 +11,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.capstoneproject.noqapp.R
+import com.capstoneproject.noqapp.admin.activity.AddMenuActivity
 import com.capstoneproject.noqapp.admin.activity.MainAdminActivity
 import com.capstoneproject.noqapp.authentication.activity.LoginActivity
 import com.capstoneproject.noqapp.databinding.ActivitySplashScreenBinding
@@ -60,6 +61,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         val customer = getString(R.string.role_customer)
         val waiter = getString(R.string.role_waiter)
+        val admin = getString(R.string.role_admin)
 
         mainViewModel.getUser().observe(this) { user ->
             when {
@@ -70,6 +72,11 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
                 user.isLogin && user.role == customer -> {
                     startActivity(Intent(this, MainActivity::class.java))
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    finish()
+                }
+                user.isLogin && user.role == admin -> {
+                    startActivity(Intent(this, AddMenuActivity::class.java))
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     finish()
                 }
